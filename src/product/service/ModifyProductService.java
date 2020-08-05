@@ -28,7 +28,7 @@ public class ModifyProductService {
 				throw new PermissionDeniedException();
 			}
 			productDao.update(conn, modReq.getProductNumber(), modReq.getTitle());
-			contentDao.update(conn, modReq.getProductNumber(), modReq.getContent());
+			contentDao.update(conn, modReq.getProductNumber(), modReq.getContent(), modReq.getFileName());
 			conn.commit();
 		} catch (SQLException e) {
 			JdbcUtil.rollback(conn);

@@ -13,8 +13,8 @@ import mvc.controller.CommandHandler;
 
 public class ManageAccPwChkHandler implements CommandHandler {
 	
-	private static final String FORM_VIEW1 = "/WEB-INF/view/passCheckForm.jsp";
-	private static final String FORM_VIEW2 = "/WEB-INF/view/manageAccView.jsp";
+	private static final String FORM_VIEW1 = "/WEB-INF/view/member/passCheckForm.jsp";
+	private static final String FORM_VIEW2 = "/WEB-INF/view/member/manageAccView.jsp";
 	private PasswordCheckService passCheckService = new PasswordCheckService();
 	
 	@Override

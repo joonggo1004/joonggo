@@ -16,7 +16,7 @@ import product.service.WriteRequest;
 
 public class WriteProductHandler implements CommandHandler {
 	
-	private static final String FORM_VIEW = "/WEB-INF/view/newProductForm.jsp";
+	private static final String FORM_VIEW = "/WEB-INF/view/product/newProductForm.jsp";
 	private WriteProductService writeService = new WriteProductService();
 	private WriteFileService writeFile = new WriteFileService();
 	
@@ -60,7 +60,7 @@ public class WriteProductHandler implements CommandHandler {
 		}
 		req.setAttribute("newProductNo", newProductNo);
 		
-		return "/WEB-INF/view/newProductSuccess.jsp";
+		return "/WEB-INF/view/product/newProductSuccess.jsp";
 	}
 
 	private WriteRequest createWriteRequest(User user, HttpServletRequest req) {

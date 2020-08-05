@@ -18,9 +18,10 @@
 <title>회원제 게시판 예제</title>
 </head>
 <body>
+<u:navbar home="active" />
 <div class="container pt-5">
 <u:isLogin>
-	CT: ${authUser.name }님, 안녕하세요.
+	${authUser.name }님, 안녕하세요.
 	<a href="logout.do">[로그아웃하기]</a>
 	<a href="myPage.do">[마이페이지]</a>
 	<br />
@@ -29,7 +30,7 @@
 	<a href="${ctxPath }/product/write.do">[게시글 작성]</a>
 </u:isLogin>
 <u:notLogin>
-	CT: <a href="join.do">[회원가입하기]</a>
+	<a href="join.do">[회원가입하기]</a>
 	<a href="login.do">[로그인하기]</a>
 </u:notLogin>
 <br />

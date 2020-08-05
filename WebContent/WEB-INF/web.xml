@@ -45,7 +45,12 @@
   </filter>
   <filter-mapping>
     <filter-name>LoginCheckFilter</filter-name>
-    <url-pattern>/changePwd.do</url-pattern>
+    <url-pattern>/myPage.do</url-pattern>
+    <url-pattern>/modifyAccount.do</url-pattern>
+    <url-pattern>/product/write.do</url-pattern>
+    <url-pattern>/product/modify.do</url-pattern>
+    <url-pattern>/product/delete.do</url-pattern>
+    <url-pattern>/comment/writeComment.do</url-pattern>
   </filter-mapping>
   
   <servlet>

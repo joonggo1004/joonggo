@@ -47,13 +47,14 @@ public class ProductContentDao {
 		}
 	}
 
-	public int update(Connection conn, int no, String content)
+	public int update(Connection conn, int no, String content, String fileName)
 			throws SQLException {
 		try (PreparedStatement pstmt = conn.prepareStatement(
-				"UPDATE product_content SET content=?"
+				"UPDATE product_content SET content=?, file_name=?"
 						+ "WHERE product_no=?")) {
 			pstmt.setString(1, content);
-			pstmt.setInt(2, no);
+			pstmt.setString(2, fileName);
+			pstmt.setInt(3, no);
 			return pstmt.executeUpdate();
 		}
 	}

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +14,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<title>게시글 수정</title>
+<title>Insert title here</title>
 </head>
 <body>
-<div class="container pt-5">
-게시글을 수정했습니다.
-<br />
-<%-- ${ctxPath = pageContext.request.contextPath ; '' }--%>
-<a href="${ctxPath }/product/list.do">[게시글목록보기]</a>
-<a href="${ctxPath }/product/read.do?no=${modReq.productNumber}">[게시글내용보기]</a>
-</div>
+<u:navbar home="active" />
+<a href="modifyAccount.do">계정관리</a> <br />
+<a href="myActivity.do">나의활동</a>
+
 </body>
 </html>

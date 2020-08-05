@@ -8,12 +8,14 @@ public class ModifyRequest {
 	private int productNumber;
 	private String title;
 	private String content;
+	private String fileName;
 	
-	public ModifyRequest(String userId, int productNumber, String title, String content) {
+	public ModifyRequest(String userId, int productNumber, String title, String content, String fileName) {
 		this.userId = userId;
 		this.productNumber = productNumber;
 		this.title = title;
 		this.content = content;
+		this.fileName = fileName;
 	}
 
 	public String getUserId() {
@@ -30,6 +32,10 @@ public class ModifyRequest {
 
 	public String getContent() {
 		return content;
+	}
+	
+	public String getFileName() {
+		return fileName;
 	}
 	
 	public void validate(Map<String, Boolean> errors) {

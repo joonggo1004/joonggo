@@ -19,7 +19,7 @@ import product.service.ReadProductService;
 
 public class DeleteProductHandler implements CommandHandler {
 
-	private static String FORM_VIEW = "/WEB-INF/view/deleteForm.jsp";
+	private static String FORM_VIEW = "/WEB-INF/view/product/deleteForm.jsp";
 	private DeleteProductService deleteService = new DeleteProductService();
 	private ReadProductService readService = new ReadProductService();
 
@@ -97,7 +97,7 @@ public class DeleteProductHandler implements CommandHandler {
 
 		try {
 			deleteService.delete(delReq);
-			return "/WEB-INF/view/deleteSuccess.jsp";
+			return "/WEB-INF/view/product/deleteSuccess.jsp";
 		} catch (ProductNotFoundException e) {
 			e.printStackTrace();
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);

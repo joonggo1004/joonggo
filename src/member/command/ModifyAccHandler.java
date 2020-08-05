@@ -14,7 +14,7 @@ import mvc.controller.CommandHandler;
 
 public class ModifyAccHandler implements CommandHandler {
 	
-	private static final String FORM_VIEW = "/WEB-INF/view/modifyAccForm.jsp";
+	private static final String FORM_VIEW = "/WEB-INF/view/member/modifyAccForm.jsp";
 	private ModifyAccService modifyService = new ModifyAccService();
 
 	@Override
@@ -57,7 +57,7 @@ public class ModifyAccHandler implements CommandHandler {
 		try {
 			
 			modifyService.update(modifyReq);
-			return "/WEB-INF/view/modifyAccSuccess.jsp";
+			return "/WEB-INF/view/member/modifyAccSuccess.jsp";
 		} catch (DuplicateIdException e) {
 			e.printStackTrace();
 			errors.put("duplicateId", Boolean.TRUE);

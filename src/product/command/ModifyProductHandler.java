@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import auth.service.User;
 import mvc.controller.CommandHandler;
@@ -15,13 +16,15 @@ import product.service.PermissionDeniedException;
 import product.service.ProductData;
 import product.service.ProductNotFoundException;
 import product.service.ReadProductService;
+import product.service.WriteFileService;
 
 public class ModifyProductHandler implements CommandHandler {
 	
-	private static final String FORM_VIEW = "/WEB-INF/view/modifyForm.jsp";
+	private static final String FORM_VIEW = "/WEB-INF/view/product/modifyForm.jsp";
 	
 	private ReadProductService readService = new ReadProductService();
 	private ModifyProductService modifyService = new ModifyProductService();
+	private WriteFileService writeFile = new WriteFileService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -45,7 +48,7 @@ public class ModifyProductHandler implements CommandHandler {
 				res.sendError(HttpServletResponse.SC_FORBIDDEN);
 				return null;
 			}
-			ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, productData.getProduct().getTitle(), productData.getContent());
+			ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, productData.getProduct().getTitle(), productData.getContent(), productData.getFileName());
 			
 			req.setAttribute("modReq", modReq);
 			return FORM_VIEW;
@@ -61,11 +64,16 @@ public class ModifyProductHandler implements CommandHandler {
 	}
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		Part filePart = req.getPart("file1");
+		String fileName = filePart.getSubmittedFileName();
+		fileName = fileName == null ? "" : fileName;
+		
 		User authUser = (User) req.getSession().getAttribute("authUser");
 		String noVal = req.getParameter("no");
 		int no = Integer.parseInt(noVal);
 		
-		ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, req.getParameter("title"), req.getParameter("content"));
+		ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, req.getParameter("title"), req.getParameter("content"), fileName);
 		req.setAttribute("modReq", modReq);
 		
 		Map<String, Boolean> errors = new HashMap<>();
@@ -74,9 +82,12 @@ public class ModifyProductHandler implements CommandHandler {
 		if (!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
+		if (!(fileName == null || fileName.isEmpty() || filePart.getSize() == 0)) {
+			writeFile.write(filePart, no);
+		}
 		try {
 			modifyService.modify(modReq);
-			return "/WEB-INF/view/modifySuccess.jsp";
+			return "/WEB-INF/view/product/modifySuccess.jsp";
 		} catch (ProductNotFoundException e) {
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;

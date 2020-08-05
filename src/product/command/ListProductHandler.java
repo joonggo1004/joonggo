@@ -20,7 +20,7 @@ public class ListProductHandler implements CommandHandler {
 		}
 		ProductPage productPage = listService.getProductPage(pageNo);
 		req.setAttribute("productPage", productPage);
-		return "/WEB-INF/view/listProduct.jsp";
+		return "/WEB-INF/view/product/listProduct.jsp";
 	}
 	
 	

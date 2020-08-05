@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">--%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -16,14 +17,16 @@
 <title>가입</title>
 </head>
 <body>
+<u:navbar home="active" />
 <div class="container pt-5">
-	<form action="join.do" method="post">
+	<form action="modifyAccount.do" method="post">
 		<fieldset>
-			<legend>가입 신청서</legend>
+			<legend>개인 정보 수정</legend>
 			<p>
-				아이디: <br /><input type="text" name="id" value="${param.id }"/>
-				<c:if test="${errors.id }">ID를 입력하세요.</c:if>
-				<c:if test="${errors.duplicateId }">이미 사용중인 아이디입니다.</c:if>
+				아이디: ${authUser.id }
+			</p>
+			<p>
+				이름: ${authUser.name }
 			</p>
 			<p>
 				암호: <br /><input type="password" name="password"/>
@@ -34,10 +37,7 @@
 				<c:if test="${errors.confirmPassword }">확인을 입력하세요.</c:if>
 				<c:if test="${errors.notMatch }">암호와 확인이 일치하지 않습니다.</c:if>
 			</p>
-			<p>
-				이름: <br /><input type="text" name="name" value="${param.name }"/>
-				<c:if test="${errors.name }">이름을 입력하세요.</c:if>
-			</p>
+
 			<p>
 				전화번호: <br /><input type="tel" name="phone"/>
 				<c:if test="${errors.phone }">전화번호를 입력하세요.</c:if>
@@ -46,7 +46,7 @@
 				email: <br /><input type="email" name="email"/>
 				<c:if test="${errors.email }">email를 입력하세요.</c:if>
 			</p>
-			<input type="submit" value="가입"/>
+			<input type="submit" value="수정"/>
 		</fieldset>
 	</form>
 </div>

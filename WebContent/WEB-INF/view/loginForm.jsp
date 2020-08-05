@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,7 @@
 <title>로그인</title>
 </head>
 <body>
+<u:navbar home="active" />
 <div class="container pt-5">
 <form action="login.do" method="post">
 <c:if test="${errors.idOrPwNotMatch }">아이디와 암호가 일치하지 않습니다.</c:if>

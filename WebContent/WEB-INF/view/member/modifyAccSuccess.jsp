@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,24 +14,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<title>게시글 수정</title>
+<title>수정 완료</title>
 </head>
 <body>
+<u:navbar home="active" />
 <div class="container pt-5">
-<form action="modify.do?no=${modReq.productNumber }" method="post">
-<p>
-	번호: <br /> <p style="text-align:center; width:100%;">${modReq.productNumber }</p>
-	<%-- <input type="number" name="no" readonly="readonly" value="${modReq.productNumber }" hidden/>--%>
-</p>
-<p>
-	제목: <br /><input type="text" name="title" value="${modReq.title }" style="text-align:center; width:100%;"/>
-	<c:if test="${errors.title }">제목을 입력하세요.</c:if>
-</p>
-<p>
-	내용: <br /><textarea name="content" cols="30" rows="5" style="text-align:center; width:100%;">${modReq.content }</textarea>
-</p>
-<input type="submit" value="글 수정"/>
-</form>
+${authUser.name }님, 회원 정보 수정에 성공했습니다.
+<br />
+<a href="${ctxPath }/index.jsp">[홈화면]</a>
 </div>
 </body>
 </html>
