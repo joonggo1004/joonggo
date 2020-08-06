@@ -17,17 +17,8 @@
 <title>가입</title>
 </head>
 <body>
-<u:navbar home="active" />
-<div class="container pt-5">
-	<form action="modifyAccount.do" method="post">
-		<fieldset>
-			<legend>개인 정보 수정</legend>
-			<p>
-				아이디: ${authUser.id }
-			</p>
-			<p>
-				이름: ${authUser.name }
-			</p>
+<u:navbar myPage="active" />
+
 			<p>
 				암호: <br /><input type="password" name="password"/>
 				<c:if test="${errors.password }">암호를 입력하세요.</c:if>
@@ -50,5 +41,56 @@
 		</fieldset>
 	</form>
 </div>
+
+	<div class="container">
+
+		<form action="modifyAccount.do" method="post">
+			<div class="form-group">
+				<label for="input1">아이디</label> ${authUser.id }
+			</div>
+
+			<div class="form-group">
+				<label for="input2">이름</label> ${authUser.name }
+			</div>
+			
+			<div class="form-group">
+				<label for="input2">암호</label> <input type="password"
+					class="form-control" name="password" id="input2" required>
+
+				<small class="form-text text-muted"> <c:if
+						test="${errors.password }">암호를 입력하세요.</c:if>
+				</small>
+			</div>
+
+			<div class="form-group">
+				<label for="input3">확인</label> <input type="password"
+					class="form-control" name="confirmPassword" id="input3" required>
+
+				<small class="form-text text-muted"> <c:if
+						test="${errors.confirmPassword }">확인을 입력하세요.</c:if> <c:if
+						test="${errors.notMatch }">암호와 확인이 일치하지 않습니다.</c:if>
+				</small>
+			</div>
+			
+			<div class="form-group">
+				<label for="input5">전화번호</label> <input type="tel"
+					class="form-control" name="phone" id="input5" value="${param.phone }"
+					placeholder="전화번호를 입력하세요." required> <small
+					class="form-text text-muted"> <c:if test="${errors.phone }">전화번호를 입력하세요.</c:if>
+				</small>
+			</div>
+
+			<div class="form-group">
+				<label for="input6">이메일</label> <input type="email"
+					class="form-control" name="email" id="input6" value="${param.email }"
+					placeholder="email를 입력하세요." required> <small
+					class="form-text text-muted"> <c:if test="${errors.email }">email를 입력하세요.</c:if>
+				</small>
+			</div>
+
+			<input class="btn btn-primary" type="submit" value="수정" />
+
+		</form>
+	</div>
 </body>
 </html>

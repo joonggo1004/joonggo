@@ -26,10 +26,10 @@
 <title>게시글 읽기</title>
 </head>
 <body>
-<u:navbar list="active" />
+<u:navbar home="active" />
 
 <div class="container">
-	<table class="table table-dark table-striped">
+	<table class="table" style="text-align:center;">
 		<tr>
 			<td>번호</td>
 			<td>${productData.product.number }</td>
@@ -52,22 +52,14 @@
 		</tr>
 		<tr>
 			<td>내용</td>
-			 
 			<td style="white-space: pre-wrap;">
-<c:out value="${productData.content }"/>
-<c:if test="${not empty productData.fileName}">
-					<!-- <a href="/pjfiles/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
-<img src="/pjfiles/${productData.product.number }/${productData.fileName}" alt="" />
-</c:if>
-			</td>
-			<%--
-			<td><u:pre value="${productData.content }"/>
+				<c:out value="${productData.content }"/>
 				<c:if test="${not empty productData.fileName}">
 					<!-- <a href="/pjfiles/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
 					<img src="/pjfiles/${productData.product.number }/${productData.fileName}" alt="" />
 				</c:if>
 			</td>
-			--%>
+			<%--<td><u:pre value="${productData.content }"/></td>--%>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -81,65 +73,48 @@
 	</table>
 	
 	<c:if test="${authUser != null }">
-	<div class="container">
 		<form action="${ctxPath }/comment/writeComment.do" method="post">
 			<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
-			<input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
-			<input type="text" name="name" value="${authUser.name }" hidden="hidden"/>
-			
-			<div class="form-group">
-				<label for="textarea1">${authUser.name }:</label>
-				<textarea class="form-control" name="message" id="textarea1" rows="1"></textarea>
-				<small class="form-text text-muted">
-					<c:if test="${errors.message }">내용을 입력하세요.</c:if>
-				</small>
-			</div> 
-			<input class="btn btn-primary" type="submit" value="메시지 남기기" />
+			이름: <input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
+				<input type="text" name="name" value="${authUser.name }"/> <br />
+			메시지: <textarea name="message" cols="30" rows="3"></textarea> <br />
+			<input type="submit" value="메시지 남기기" />
 		</form>
-	</div>
 		
-		<c:if test="${!viewData[0].isEmpty() }">
+		<c:if test="${!viewData.isEmpty() }">
 	
 			<table class="table">
-				<c:forEach var="message" items="${viewData[0].messageList }" varStatus="status">
+				<c:forEach var="message" items="${viewData.messageList }" varStatus="status">
 					<tr>
-						<td>메시지: ${message.guestName }(${message.regDate.toLocaleString() }): ${message.message }
+						<td>${message.guestName }(${message.regDate.toLocaleString() }): ${message.message } <br />
 							${i=status.index;'' }
-							<button type="button" onclick="replyFct(${i})">Reply</button> 
-							<c:if test="${(index == i) && errors.message }"><span onload="replyFct(${i })"></span></c:if>
+							<button type="button" onclick="replyFct(${i})">Reply</button>
 							<form id="reply${i }" style="display:none" action="${ctxPath }/comment/writeReply.do" method="post">
-								<input type="number" name="index" value="${i }" hidden="hidden" />
 								<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
 								<input type="number" name="parentNo" value="${message.no }" hidden="hidden" />
-								${authUser.name }: <input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
-									<input type="text" name="name" value="${authUser.name }" hidden="hidden"/> 
-								<textarea name="message" cols="30" rows="2"></textarea> 
-								<c:if test="${(index == i) && errors.message }">내용을 입력하세요.</c:if>
-								<input type="submit" value="응답 남기기" />
+								이름: <input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
+									<input type="text" name="name" value="${authUser.name }"/> <br />
+								메시지: <textarea name="message" cols="30" rows="3"></textarea> <br />
+								<input type="submit" value="reply남기기" />
 							</form>
+							<c:if test="${message.no == viewReplyData.messageList[0].parentNo }">
+							<table class="table">
+								<c:forEach var="reply" items="${viewReplyData.messageList }" >
+									<tr>
+										<td>
+											${reply.guestName }(${reply.regDate.toLocaleString() }): ${reply.message } <br />
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
+							</c:if>
 							
-							<c:forEach var="view" items="${viewData }" varStatus="status">
-								${j=status.index;'' }
-								<cif test="${(j!=0) && !view.isEmpty() }">
-									<c:if test="${message.no == view.messageList[0].parentNo }">
-									<table class="table">
-										<c:forEach var="reply" items="${view.messageList }" >
-											<tr>
-												<td>
-													응답: ${reply.guestName }(${reply.regDate.toLocaleString() }): ${reply.message } <br />
-												</td>
-											</tr>
-										</c:forEach>
-									</table>
-									</c:if>
-								</cif>
-							</c:forEach>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
 			
-			<c:forEach var="pageNum" begin="1" end="${viewData[0].pageTotalCount }">
+			<c:forEach var="pageNum" begin="1" end="${viewData.pageTotalCount }">
 			<a href="${ctxPath }/product/read.do?no=${productData.product.number}&&page=${pageNum }">[${pageNum }]</a>
 			</c:forEach>
 		

@@ -91,9 +91,11 @@
 				<label for="textarea1">${authUser.name }:</label>
 				<textarea class="form-control" name="message" id="textarea1" rows="1"></textarea>
 				<small class="form-text text-muted">
-					<c:if test="${errors.message }">내용을 입력하세요.</c:if>
+					<c:if test="${errors.content }">내용을 입력하세요.</c:if>
 				</small>
 			</div> 
+			<%--<textarea name="message" cols="30" rows="3"></textarea> 
+			<input type="submit" value="메시지 남기기" />--%>
 			<input class="btn btn-primary" type="submit" value="메시지 남기기" />
 		</form>
 	</div>
@@ -106,15 +108,12 @@
 						<td>메시지: ${message.guestName }(${message.regDate.toLocaleString() }): ${message.message }
 							${i=status.index;'' }
 							<button type="button" onclick="replyFct(${i})">Reply</button> 
-							<c:if test="${(index == i) && errors.message }"><span onload="replyFct(${i })"></span></c:if>
 							<form id="reply${i }" style="display:none" action="${ctxPath }/comment/writeReply.do" method="post">
-								<input type="number" name="index" value="${i }" hidden="hidden" />
 								<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
 								<input type="number" name="parentNo" value="${message.no }" hidden="hidden" />
 								${authUser.name }: <input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
 									<input type="text" name="name" value="${authUser.name }" hidden="hidden"/> 
 								<textarea name="message" cols="30" rows="2"></textarea> 
-								<c:if test="${(index == i) && errors.message }">내용을 입력하세요.</c:if>
 								<input type="submit" value="응답 남기기" />
 							</form>
 							

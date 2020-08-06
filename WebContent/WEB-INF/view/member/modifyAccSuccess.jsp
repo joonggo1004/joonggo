@@ -17,7 +17,7 @@
 <title>수정 완료</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar myPage="active" />
 <div class="container pt-5">
 ${authUser.name }님, 회원 정보 수정에 성공했습니다.
 <br />

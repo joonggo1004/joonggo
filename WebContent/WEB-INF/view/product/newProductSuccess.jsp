@@ -17,7 +17,7 @@
 <title>게시글 등록</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar write="active" />
 <div class="container pt-5">
 게시글을 등록했습니다.
 <br />

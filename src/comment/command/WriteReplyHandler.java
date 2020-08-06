@@ -11,7 +11,7 @@ import comment.model.Message;
 import comment.service.WriteMessageService;
 import mvc.controller.CommandHandler;
 
-public class WriteCommentHandler implements CommandHandler{
+public class WriteReplyHandler implements CommandHandler{
 	
 	private static final String FORM_VIEW = "/WEB-INF/view/product/readProduct.jsp";
 
@@ -36,9 +36,12 @@ public class WriteCommentHandler implements CommandHandler{
 		request.setAttribute("errors", errors);
 		
 		Message message = new Message();
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();		
 		
+		int index = Integer.parseInt(request.getParameter("index"));
+		request.setAttribute("index", index);
 		int productNo = Integer.parseInt(request.getParameter("productNo"));
+		int parentNo = Integer.parseInt(request.getParameter("parentNo"));
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String body = request.getParameter("message");
@@ -47,6 +50,7 @@ public class WriteCommentHandler implements CommandHandler{
 			errors.put("message", Boolean.TRUE);
 		} else {
 			message.setProductNo(productNo);
+			message.setParentNo(parentNo);
 			message.setGuestId(id);
 			message.setGuestName(name);
 			message.setMessage(body);
@@ -57,6 +61,7 @@ public class WriteCommentHandler implements CommandHandler{
 			if (success) {
 				session.setAttribute("info", "메시지가 등록되었습니다.");
 				//response.sendRedirect(request.getContextPath()+"/comment/listComment.do");
+				//request.getRequestDispatcher("/product/read.do?no="+productNo+"&parentNo="+parentNo).forward(request, response);
 			} else {
 				session.setAttribute("info", "메시지 등록에 실패하였습니다.");
 			}

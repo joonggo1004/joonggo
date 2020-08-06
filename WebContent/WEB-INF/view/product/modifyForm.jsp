@@ -17,7 +17,7 @@
 <title>게시글 수정</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar list="active" />
 
 <div class="container">
 <form action="modify.do?no=${modReq.productNumber }" method="post" enctype="multipart/form-data" >

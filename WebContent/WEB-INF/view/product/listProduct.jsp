@@ -17,7 +17,7 @@
 <title>게시글 목록</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar list="active" />
 	<div class="container">
 		<table class="table">
 			<thead>

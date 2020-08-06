@@ -17,23 +17,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-<u:navbar home="active" />
-<div class="container pt-5">
-<form action="myPage.do" method="post">
-암호 : <input type="password" name="password" />
-<c:if test="${errors.password }">암호을 입력하세요.</c:if>
-<c:if test="${errors.pwNotMatch }">암호가 일치하지 않습니다.</c:if>
-<input type="submit" value="확인" />
-</form>
-</div>
+<u:navbar myPage="active" />
+
+	<div class="container">
+
+		<form action="myPage.do" method="post">
+
+			<div class="form-group">
+				<label for="input1">암호</label>
+					<input type="password" class="form-control" name="password" id="input1" required>
+				<small class="form-text text-muted">
+					<c:if test="${errors.password }">암호를 입력하세요.</c:if>
+					<c:if test="${errors.pwNotMatch }">암호가 일치하지 않습니다.</c:if>
+				</small>
+			</div>
+
+			<input class="btn btn-primary" type="submit" value="확인" />
+
+		</form>
+	</div>
+	
 </body>
 </html>
-
-
-
-
-
-
-
-
-

@@ -17,25 +17,41 @@
 <title>게시글 쓰기</title>
 </head>
 <body>
-<u:navbar home="active" />
-<div class="container pt-5">
-<form action="write.do" method="post" enctype="multipart/form-data" >
-<p>
-	제목: <br /><input type="text" name="title" value="${param.title }" style="text-align:center; width:100%;"/>
-	<c:if test="${errors.title }">제목을 입력하세요.</c:if>
-</p>
-<p>
-	내용: <br />
-	<textarea name="content" cols="30" rows="5" style="text-align:center; width:100%;">${param.content }</textarea>
-	<c:if test="${errors.content }">내용을 입력하세요.</c:if>
-</p>
-<p>
-	파일: <br />
-	<input type="file" name="file1"  /> <%--accept="image/*" : image file로만 제한 --%>
-</p>
 
-<input type="submit" value="새 글 등록"/>
-</form>
-</div>
+	<u:navbar write="active" />
+
+	<div class="container">
+
+		<form action="write.do" method="post" enctype="multipart/form-data">
+
+			<div class="form-group">
+				<label for="input1">제목</label> <input type="text"
+					class="form-control" name="title" id="input1"
+					placeholder="제목을 입력하세요." value="${param.title }" required>
+				<small class="form-text text-muted">
+					<c:if test="${errors.title }">제목을 입력하세요.</c:if>
+				</small>
+			</div>
+			
+			<div class="form-group">
+				<label for="textarea1">내용</label>
+				<textarea class="form-control" name="content" id="textarea1"
+					rows="3">${param.content }</textarea>
+				<small class="form-text text-muted">
+					<c:if test="${errors.content }">내용을 입력하세요.</c:if>
+				</small>
+			</div>
+			
+			<div class="form-group">
+				<label for="file1">파일</label> <input type="file" name="file1"
+					accept="image/*" class="form-control-file" id="file1">
+			</div>
+
+			<input class="btn btn-primary" type="submit" value="등록" />
+		</form>
+
+	</div>
+
+
 </body>
 </html>

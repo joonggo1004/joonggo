@@ -17,7 +17,7 @@
 <title>게시글 수정</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar list="active" />
 <div class="container pt-5">
 게시글을 수정했습니다.
 <br />

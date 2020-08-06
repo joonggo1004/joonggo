@@ -17,7 +17,7 @@
 <title>가입 완료</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar join="active" />
 <div class="container pt-5">
 ${param.name }님, 회원 가입에 성공했습니다.
 <br />

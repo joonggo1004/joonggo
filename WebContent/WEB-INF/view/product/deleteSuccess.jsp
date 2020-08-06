@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar list="active" />
 <div class="container pt-5">
 게시글을 삭제했습니다.
 

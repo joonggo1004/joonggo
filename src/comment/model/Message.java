@@ -4,8 +4,9 @@ import java.util.Date;
 
 public class Message {
 	
-	private int id;
+	private int no;
 	private int productNo;
+	private int parentNo;
 	private String guestId;
 	private String guestName;
 	private String message;
@@ -13,21 +14,27 @@ public class Message {
 	
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", productNo=" + productNo + ", guestName=" + guestName + ", message=" + message
+		return "Message [id=" + no + ", productNo=" + productNo + ", guestName=" + guestName + ", message=" + message
 				+ "]";
 	}
 	
-	public int getId() {
-		return id;
+	public int getNo() {
+		return no;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setNo(int no) {
+		this.no = no;
 	}
 	public int getProductNo() {
 		return productNo;
 	}
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
+	}
+	public int getParentNo() {
+		return parentNo;
+	}
+	public void setParentNo(int parentNo) {
+		this.parentNo = parentNo;
 	}
 	public String getGuestId() {
 		return guestId;

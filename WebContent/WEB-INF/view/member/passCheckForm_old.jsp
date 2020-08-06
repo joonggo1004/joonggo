@@ -17,20 +17,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-<u:navbar list="active" />
+<u:navbar home="active" />
 <div class="container pt-5">
-<h1></h1>
-<form action="delete.do?no=${delReq.productNumber }" method="post">
-<p>
-암호 : <input type="password" name="password"/> <br />
+<form action="myPage.do" method="post">
+암호 : <input type="password" name="password" />
 <c:if test="${errors.password }">암호을 입력하세요.</c:if>
-<c:if test="${errors.invalidPassword }">암호가 일치하지 않습니다.</c:if>
-</p>
-<input type="submit" value="게시물 삭제" />
-</div>
+<c:if test="${errors.pwNotMatch }">암호가 일치하지 않습니다.</c:if>
+<input type="submit" value="확인" />
 </form>
+</div>
 </body>
 </html>
+
+
+
+
 
 
 

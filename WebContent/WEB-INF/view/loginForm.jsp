@@ -17,20 +17,31 @@
 <title>로그인</title>
 </head>
 <body>
-<u:navbar home="active" />
-<div class="container pt-5">
-<form action="login.do" method="post">
-<c:if test="${errors.idOrPwNotMatch }">아이디와 암호가 일치하지 않습니다.</c:if>
-<p>
-	아이디: <br /><input type="text" name="id" value="${param.id }"/>
-	<c:if test="${errors.id }">ID를 입력하세요.</c:if>
-</p>
-<p>
-	암호: <br /><input type="password" name="password"/>
-	<c:if test="${errors.password }">암호를 입력하세요.</c:if>
-</p>
-<input type="submit" value="로그인"/>
-</form>
-</div>
+<u:navbar login="active" />
+
+	<div class="container">
+		<form action="login.do" method="post">
+
+			<div class="form-group">
+				<label for="input1">아이디</label>
+					<input type="text" class="form-control" name="id" id="input1" placeholder="ID를 입력하세요."	value="${param.id }" required>
+				<small class="form-text text-muted">
+					<c:if test="${errors.id }">ID를 입력하세요.</c:if>
+				</small>
+			</div>
+
+			<div class="form-group">
+				<label for="input2">암호</label>
+					<input type="password" class="form-control" name="password" id="input2" required>
+				<small class="form-text text-muted">
+					<c:if test="${errors.password }">암호를 입력하세요.</c:if>
+					<c:if test="${errors.idOrPwNotMatch }">아이디와 암호가 일치하지 않습니다.</c:if>
+				</small>
+			</div>
+			<input class="btn btn-primary" type="submit" value="로그인" />
+
+		</form>
+	</div>
+
 </body>
 </html>

@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 
 import comment.model.Message;
-
 import jdbc.JdbcUtil;
 
 public class MessageDao {
@@ -35,24 +34,42 @@ public class MessageDao {
 		try {
 			pstmt = conn.prepareStatement(
 					"insert into comment "+
-					"(product_no, guest_id, guest_name, message, regdate) values (?,?,?,?,now())"); //p.448
+					"(product_no, parent_no, guest_id, guest_name, message, regdate) values (?,?,?,?,?,now())"); //p.448
 			pstmt.setInt(1, message.getProductNo());
-			pstmt.setString(2, message.getGuestId());
-			pstmt.setString(3, message.getGuestName());
-			pstmt.setString(4, message.getMessage());
+			pstmt.setInt(2, message.getParentNo());
+			pstmt.setString(3, message.getGuestId());
+			pstmt.setString(4, message.getGuestName());
+			pstmt.setString(5, message.getMessage());
 			return pstmt.executeUpdate();
 		} finally {
 			JdbcUtil.close(pstmt); //p.434
 		}
 	}
 	
-	public Message select(Connection conn, int messageId) throws SQLException {
+	public Message selectByMsgNo(Connection conn, int messageNo) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"select * from comment where comment_no = ?");
-			pstmt.setInt(1, messageId);
+					"select * from comment where message_no = ?");
+			pstmt.setInt(1, messageNo);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return makeMessageFromResultSet(rs);
+			} else {
+				return null;
+			}
+		} finally {
+			JdbcUtil.close(rs, pstmt);
+		}
+	}
+	public Message selectByParentNo(Connection conn, int parentNo) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(
+					"select * from comment where parent_no = ?");
+			pstmt.setInt(1, parentNo);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return makeMessageFromResultSet(rs);
@@ -66,8 +83,9 @@ public class MessageDao {
 	
 	private Message makeMessageFromResultSet(ResultSet rs) throws SQLException {
 		Message message = new Message();
-		message.setId(rs.getInt("message_id"));
+		message.setNo(rs.getInt("message_no"));
 		message.setProductNo(rs.getInt("product_no"));
+		message.setParentNo(rs.getInt("parent_no"));
 		message.setGuestId(rs.getString("guest_id"));
 		message.setGuestName(rs.getString("guest_name"));
 		message.setMessage(rs.getString("message"));
@@ -79,12 +97,26 @@ public class MessageDao {
 		return new Date(timestamp.getTime());
 	}
 	
-	public int selectCount(Connection conn, String productNo) throws SQLException {
+	public int selectCount(Connection conn, int productNo, int parentNo) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select count(*) from comment where product_no ="+ productNo +" group by product_no");
+			rs = stmt.executeQuery("select count(*) from comment where product_no ="+ productNo +" and parent_no = " + parentNo + " group by product_no");
+			if(rs.next()) {
+				return rs.getInt(1);
+			} else return 0;
+		} finally {
+			JdbcUtil.close(rs,stmt);
+		}
+	}
+	
+	public int selectMaxMessageNo(Connection conn) throws SQLException {
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select max(message_no) from comment");
 			rs.next();
 			return rs.getInt(1);
 		} finally {
@@ -92,16 +124,17 @@ public class MessageDao {
 		}
 	}
 	
-	public List<Message> selectList(Connection conn, int firstRow, int endRow, String productNo) throws SQLException {
+	public List<Message> selectList(Connection conn, int firstRow, int endRow, int productNo, int parentNo) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
 					"select * from comment "+
-					"where product_no = ? order by message_id desc limit ?, ?");
-			pstmt.setInt(1, Integer.parseInt(productNo));
-			pstmt.setInt(2, firstRow-1);
-			pstmt.setInt(3, endRow-firstRow+1);
+					"where product_no = ? and parent_no = ? order by message_no desc limit ?, ?");
+			pstmt.setInt(1, productNo);
+			pstmt.setInt(2, parentNo);
+			pstmt.setInt(3, firstRow-1);
+			pstmt.setInt(4, endRow-firstRow+1);
 			rs = pstmt.executeQuery();
 			/*
 			if (rs.next()) {
@@ -119,6 +152,9 @@ public class MessageDao {
 				messageList.add(makeMessageFromResultSet(rs));
 			}
 			return messageList;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
 		} finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
@@ -129,7 +165,7 @@ public class MessageDao {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"delete from comment  where message_id = ?");
+					"delete from comment  where message_no = ?");
 			pstmt.setInt(1, messageId);
 			return pstmt.executeUpdate();
 		} finally {

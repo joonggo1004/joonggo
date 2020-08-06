@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<u:navbar home="active" />
+<u:navbar myPage="active" />
 <a href="modifyAccount.do">계정관리</a> <br />
 <a href="myActivity.do">나의활동</a>
 
