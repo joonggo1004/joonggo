@@ -1,4 +1,4 @@
-package comment.dao;
+package myActivity.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -97,12 +97,12 @@ public class MessageDao {
 		return new Date(timestamp.getTime());
 	}
 	
-	public int selectCount(Connection conn, int productNo, int parentNo) throws SQLException {
+	public int selectCount(Connection conn, String userId) throws SQLException {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select count(*) from comment where product_no ="+ productNo +" and parent_no = " + parentNo + " group by product_no");
+			rs = stmt.executeQuery("select count(*) from comment where guest_id ='"+ userId + "'");
 			if(rs.next()) {
 				return rs.getInt(1);
 			} else return 0;
@@ -124,17 +124,15 @@ public class MessageDao {
 		}
 	}
 	
-	public List<Message> selectList(Connection conn, int firstRow, int endRow, int productNo, int parentNo) throws SQLException {
+	public List<Message> selectList(Connection conn, int firstRow, int endRow, String userId) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"select * from comment "+
-					"where product_no = ? and parent_no = ? order by message_no desc limit ?, ?");
-			pstmt.setInt(1, productNo);
-			pstmt.setInt(2, parentNo);
-			pstmt.setInt(3, firstRow-1);
-			pstmt.setInt(4, endRow-firstRow+1);
+					"select * from comment where guest_id = ? order by message_no desc limit ?, ?");
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, firstRow-1);
+			pstmt.setInt(3, endRow-firstRow+1);
 			rs = pstmt.executeQuery();
 			/*
 			if (rs.next()) {
@@ -156,8 +154,7 @@ public class MessageDao {
 			e.printStackTrace();
 			return null;
 		} finally {
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
+			JdbcUtil.close(rs,pstmt);
 		}
 	}
 	

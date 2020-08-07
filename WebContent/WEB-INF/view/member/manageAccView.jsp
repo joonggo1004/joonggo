@@ -13,13 +13,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/jumbotron.css">
 
-<title>Insert title here</title>
+<title>My Page</title>
 </head>
 <body>
 <u:navbar myPage="active" />
-<a href="modifyAccount.do">계정관리</a> <br />
-<a href="myActivity.do">나의활동</a>
+
+<div class="container mt-3">
+	<div class="jumbotron">
+		<h1 class="display-4">My Page입니다.</h1>
+		<hr class="my-4">
+		<br />
+		<br />
+		<br />
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/modifyAccount.do" role="button">계정관리</a>
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/myListProduct.do" role="button">나의활동</a>
+	</div>
+</div>
 
 </body>
 </html>

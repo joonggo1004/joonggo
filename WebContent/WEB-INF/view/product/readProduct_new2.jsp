@@ -94,7 +94,7 @@
 					<c:if test="${errors.message }">내용을 입력하세요.</c:if>
 				</small>
 			</div> 
-			<input class="btn btn-primary" type="submit" value="댓글 남기기" />
+			<input class="btn btn-primary" type="submit" value="메시지 남기기" />
 		</form>
 	</div>
 		
@@ -103,7 +103,7 @@
 			<table class="table">
 				<c:forEach var="message" items="${viewData[0].messageList }" varStatus="status">
 					<tr>
-						<td>
+						<td>메시지: ${message.guestName }(${message.regDate.toLocaleString() }): ${message.message }
 							${i=status.index;'' }
 							<button type="button" onclick="replyFct(${i})">Reply</button> 
 							
@@ -137,8 +137,6 @@
 									</c:if>
 								</cif>
 							</c:forEach>
-							
-							댓글: ${message.guestName }(${message.regDate.toLocaleString() }): ${message.message }
 						</td>
 					</tr>
 				</c:forEach>

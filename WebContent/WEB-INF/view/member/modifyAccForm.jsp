@@ -19,38 +19,15 @@
 <body>
 <u:navbar myPage="active" />
 
-			<p>
-				암호: <br /><input type="password" name="password"/>
-				<c:if test="${errors.password }">암호를 입력하세요.</c:if>
-			</p>
-			<p>
-				확인: <br /><input type="password" name="confirmPassword"/>
-				<c:if test="${errors.confirmPassword }">확인을 입력하세요.</c:if>
-				<c:if test="${errors.notMatch }">암호와 확인이 일치하지 않습니다.</c:if>
-			</p>
-
-			<p>
-				전화번호: <br /><input type="tel" name="phone"/>
-				<c:if test="${errors.phone }">전화번호를 입력하세요.</c:if>
-			</p>
-			<p>
-				email: <br /><input type="email" name="email"/>
-				<c:if test="${errors.email }">email를 입력하세요.</c:if>
-			</p>
-			<input type="submit" value="수정"/>
-		</fieldset>
-	</form>
-</div>
-
 	<div class="container">
 
 		<form action="modifyAccount.do" method="post">
 			<div class="form-group">
-				<label for="input1">아이디</label> ${authUser.id }
+				<label for="input1">아이디: </label> ${authUser.id }
 			</div>
 
 			<div class="form-group">
-				<label for="input2">이름</label> ${authUser.name }
+				<label for="input2">이름: </label> ${authUser.name }
 			</div>
 			
 			<div class="form-group">

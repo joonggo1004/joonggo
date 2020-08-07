@@ -18,6 +18,7 @@
 </head>
 <body>
 <u:navbar list="active" />
+	<div class="container"><div class="col-sm-12" style="text-align: center;"><h4>내가 올린 중고 제품들</h4></div></div>
 	<div class="container">
 		<table class="table">
 			<thead>
@@ -69,6 +70,9 @@
 				</c:if>
 			</ul>
 		</nav>
+	</div>
+	<div class="container">
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/myCommReply.do" role="button">내 댓글 목록보기</a>
 	</div>
 </body>
 </html>

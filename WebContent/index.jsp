@@ -14,14 +14,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<style>
-	.jumbotron {
-		background-image: url('images/bluedragon.jpg');
-		background-size: cover;
-		text-shadow: balck 0.2em 0.2em 0.2em;
-		color: white;
-	}
-</style>
+<link rel="stylesheet" href="${ctxPath }/css/jumbotron.css">
+
 <title>중고세상</title>
 </head>
 <body>
@@ -33,6 +27,10 @@
 		<h1 class="display-4">중고 세상</h1>
 		<p class="lead">1년동안 안 쓰는 물건은 평생 안 씁니다. 안 쓰는 물건을 찾아서 거래해 보십시요. 쏠쏠한 재미와 함께 금전적인 수입이 찾아 올 것입니다.</p>
 		<hr class="my-4">
+		<br />
+		<u:isLogin>
+			<a class="btn btn-primary btn-lg" href="${ctxPath }/product/list.do" role="button">목록보기</a>
+		</u:isLogin>
 		<u:notLogin>
 			<p>회원 가입부터 시작해보세요.</p>
 			<a class="btn btn-primary btn-lg" href="join.do" role="button">회원 가입</a>
@@ -42,7 +40,7 @@
 </div>
 
 <footer style="background-color: #000000; color: #ffffff">
-	<div class="container">
+	<div class="container-fluid">
 		<br />
 		<div class="row">
 			<div class="col-sm-2" style="text-align: center;"><h5>Copyright &copy; 2020</h5><h5>김종찬</h5></div>

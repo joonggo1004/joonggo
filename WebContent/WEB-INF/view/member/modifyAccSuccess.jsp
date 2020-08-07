@@ -18,10 +18,17 @@
 </head>
 <body>
 <u:navbar myPage="active" />
-<div class="container pt-5">
-${authUser.name }님, 회원 정보 수정에 성공했습니다.
-<br />
-<a href="${ctxPath }/index.jsp">[홈화면]</a>
+
+<div class="container mt-3">
+	<div class="jumbotron">
+		<h1 class="display-4">${authUser.name }님, 회원 정보 수정에 성공했습니다.</h1>
+		<hr class="my-4">
+		<br />
+		<br />
+		<br />
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/index.jsp" role="button">Home</a>
+	</div>
 </div>
+
 </body>
 </html>
