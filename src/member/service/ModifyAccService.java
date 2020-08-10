@@ -13,6 +13,22 @@ public class ModifyAccService {
 	
 	private MemberDao memberDao = new MemberDao();
 	
+	public Member selectById(String userId) {
+		Connection conn = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			Member member = memberDao.selectById(conn, userId);
+			if (member == null) {
+				throw new MemberNotFoundException();
+			}
+			return member;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			JdbcUtil.close(conn);
+		}
+	}
+	
 	public void update(ModifyRequest modifyReq) {
 		
 		Connection conn = null;
@@ -23,7 +39,7 @@ public class ModifyAccService {
 			Member member = memberDao.selectById(conn, modifyReq.getId());
 			if (member == null) {
 				JdbcUtil.rollback(conn);
-				throw new DuplicateIdException();
+				throw new MemberNotFoundException();
 			}
 			
 			memberDao.update(conn,

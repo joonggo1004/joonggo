@@ -31,7 +31,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="input2">암호</label> <input type="password"
+				<label for="input2">수정 할 암호</label> <input type="password"
 					class="form-control" name="password" id="input2" required>
 
 				<small class="form-text text-muted"> <c:if
@@ -40,7 +40,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="input3">확인</label> <input type="password"
+				<label for="input3">암호 확인</label> <input type="password"
 					class="form-control" name="confirmPassword" id="input3" required>
 
 				<small class="form-text text-muted"> <c:if
@@ -50,16 +50,16 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="input5">전화번호</label> <input type="tel"
-					class="form-control" name="phone" id="input5" value="${param.phone }"
+				<label for="input5">수정 할 전화번호</label> <input type="tel"
+					class="form-control" name="phone" id="input5" value="${member.phone }"
 					placeholder="전화번호를 입력하세요." required> <small
 					class="form-text text-muted"> <c:if test="${errors.phone }">전화번호를 입력하세요.</c:if>
 				</small>
 			</div>
 
 			<div class="form-group">
-				<label for="input6">이메일</label> <input type="email"
-					class="form-control" name="email" id="input6" value="${param.email }"
+				<label for="input6">수정 할 이메일</label> <input type="email"
+					class="form-control" name="email" id="input6" value="${member.email }"
 					placeholder="email를 입력하세요." required> <small
 					class="form-text text-muted"> <c:if test="${errors.email }">email를 입력하세요.</c:if>
 				</small>

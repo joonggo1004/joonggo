@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import auth.service.User;
+import member.model.Member;
 import member.service.DuplicateIdException;
 import member.service.ModifyAccService;
 import member.service.ModifyRequest;
@@ -30,6 +31,9 @@ public class ModifyAccHandler implements CommandHandler {
 	}
 
 	private String processForm(HttpServletRequest req, HttpServletResponse res) {
+		User authUser = (User) req.getSession().getAttribute("authUser");
+		Member member = modifyService.selectById(authUser.getId());
+		req.setAttribute("member", member);
 		return FORM_VIEW;
 	}
 
