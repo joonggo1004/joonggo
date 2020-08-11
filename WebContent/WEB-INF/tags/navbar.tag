@@ -20,9 +20,11 @@
 		<div class="navbar-nav ">
 			<c:if test="${not empty sessionScope.authUser }">
 				<a class="nav-link nav-item ${current.write }"
-					href="#">공지사항</a>
+					href="${ctxPath }/notice/list.do">공지사항</a>
 				<a class="nav-link nav-item ${current.write }"
-					href="#">Contact US</a>
+					href="${ctxPath }/contactUs.do">Contact US</a>
+				<!--<a class="nav-link nav-item ${current.write }"
+					data-toggle="modal" href="#reportModal">Contact US</a> -->
 				<a class="nav-link nav-item ${current.write }"
 					href="${ctxPath }/myPage.do">MyPage(${authUser.name}[${authUser.id}]님)</a>
 				<a class="nav-link nav-item ${current.write }"

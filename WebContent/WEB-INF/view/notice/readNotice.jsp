@@ -32,39 +32,39 @@
 	<table class="table table-dark table-striped">
 		<tr>
 			<td>번호</td>
-			<td>${productData.product.number }</td>
+			<td>${noticeData.notice.number }</td>
 		</tr>
 		<tr>
 			<td>작성자</td>
-			<td>${productData.product.writer.name }</td>
+			<td>${noticeData.notice.writer.name }</td>
 		</tr>
 		<tr>
 			<td>제목</td>
-			<td><c:out value="${productData.product.title }"/></td>
+			<td><c:out value="${noticeData.notice.title }"/></td>
 		</tr>
 		<tr>
 			<td>작성일</td>
-			<td>${productData.product.regDate.toLocaleString() }</td>
+			<td>${noticeData.notice.regDate.toLocaleString() }</td>
 		</tr>
 		<tr>
 			<td>수정일</td>
-			<td>${productData.product.modifiedDate.toLocaleString() }</td>
+			<td>${noticeData.notice.modifiedDate.toLocaleString() }</td>
 		</tr>
 		<tr>
 			<td>내용</td>
 			 
 			<td style="white-space: pre-wrap;">
-<c:out value="${productData.content }"/>
-<c:if test="${not empty productData.fileName}">
-					<!-- <a href="/pjfiles/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
-<img src="/pjfiles/product/${productData.product.number }/${productData.fileName}" alt="" />
+<c:out value="${noticeData.content }"/>
+<c:if test="${not empty noticeData.fileName}">
+					<!-- <a href="/pjfiles/${noticeData.notice.number }/${noticeData.fileName}">${noticeData.fileName}</a>  -->
+<img src="/pjfiles/notice/${noticeData.notice.number }/${noticeData.fileName}" alt="" />
 </c:if>
 			</td>
 			<%--
-			<td><u:pre value="${productData.content }"/>
-				<c:if test="${not empty productData.fileName}">
-					<!-- <a href="/pjfiles/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
-					<img src="/pjfiles/${productData.product.number }/${productData.fileName}" alt="" />
+			<td><u:pre value="${noticeData.content }"/>
+				<c:if test="${not empty noticeData.fileName}">
+					<!-- <a href="/pjfiles/${noticeData.notice.number }/${noticeData.fileName}">${noticeData.fileName}</a>  -->
+					<img src="/pjfiles/${noticeData.notice.number }/${noticeData.fileName}" alt="" />
 				</c:if>
 			</td>
 			--%>
@@ -72,9 +72,9 @@
 		<tr>
 			<td colspan="2">
 				<c:set var="pageNo" value="${empty param.pageNo ? '1' : param.pageNo }"/>
-				<c:if test="${authUser.id == productData.product.writer.id }">
-					<a class="btn btn-secondary" href="modify.do?no=${productData.product.number }">수정</a>
-					<a class="btn btn-danger" href="delete.do?no=${productData.product.number }">삭제</a>
+				<c:if test="${authUser.id == noticeData.notice.writer.id }">
+					<a class="btn btn-secondary" href="modify.do?no=${noticeData.notice.number }">수정</a>
+					<a class="btn btn-danger" href="delete.do?no=${noticeData.notice.number }">삭제</a>
 				</c:if>
 			</td>
 		</tr>		
@@ -83,7 +83,7 @@
 	<c:if test="${authUser != null }">
 	<div class="container">
 		<form action="${ctxPath }/comment/writeComment.do" method="post">
-			<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
+			<input type="number" name="noticeNo" value="${noticeData.notice.number }" hidden="hidden" />
 			<input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
 			<input type="text" name="name" value="${authUser.name }" hidden="hidden"/>
 			
@@ -109,7 +109,7 @@
 							
 							<form id="reply${i }" style="display:none" action="${ctxPath }/comment/writeReply.do" method="post">
 								<input type="number" name="index" value="${i }" hidden="hidden" />
-								<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
+								<input type="number" name="noticeNo" value="${noticeData.notice.number }" hidden="hidden" />
 								<input type="number" name="parentNo" value="${message.no }" hidden="hidden" />
 								${authUser.name }: <input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
 									<input type="text" name="name" value="${authUser.name }" hidden="hidden"/> 
@@ -145,7 +145,7 @@
 			</table>
 			
 			<c:forEach var="pageNum" begin="1" end="${viewData[0].pageTotalCount }">
-			<a href="${ctxPath }/product/read.do?no=${productData.product.number}&&page=${pageNum }">[${pageNum }]</a>
+			<a href="${ctxPath }/notice/read.do?no=${noticeData.notice.number}&&page=${pageNum }">[${pageNum }]</a>
 			</c:forEach>
 		
 		</c:if>

@@ -51,6 +51,7 @@
     <url-pattern>/product/modify.do</url-pattern>
     <url-pattern>/product/delete.do</url-pattern>
     <url-pattern>/comment/writeComment.do</url-pattern>
+    <url-pattern>/contactUs.do</url-pattern>
   </filter-mapping>
   
   <servlet>

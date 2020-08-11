@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,23 +13,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/jumbotron.css">
 
-<title>메일 Form</title>
+<title>공지사항 등록</title>
 </head>
 <body>
+<u:navbar write="active" />
 
-    <div>
-        <form action="sendMail.jsp" method="post">
-            <table>
-                <tr><th colspan="2">JSP 메일 보내기</th></tr>
-                <tr><td>from</td><td><input type="text" name="from" /></td></tr>
-                <tr><td>to</td><td><input type="text" name="to" /></td></tr>
-                <tr><td>subject</td><td><input type="text" name="subject" /></td></tr>
-                <tr><td>content</td><td><textarea name="content" style="width:170px; height:200px;"></textarea></td></tr>
-                <tr><td colspan="2" style="text-align:right;"><input type="submit" value="Transmission"/></td></tr>
-            </table>
-        </form>
-    </div>
+<div class="container mt-3">
+	<div class="jumbotron">
+		<h1 class="display-4">공지사항을 등록했습니다.</h1>
+		<hr class="my-4">
+		<br />
+		<br />
+		<br />
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/notice/list.do" role="button">목록보기</a>
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/notice/read.do?no=${newNoticeNo }" role="button">게시글내용보기</a>
+	</div>
+</div>
 
 </body>
 </html>
