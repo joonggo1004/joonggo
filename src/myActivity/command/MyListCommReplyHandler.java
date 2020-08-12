@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import auth.service.User;
 import myActivity.service.GetMessageListService;
-import comment.service.MessageListView;
+import prodComment.service.MessageListView;
 import mvc.controller.CommandHandler;
 
 public class MyListCommReplyHandler implements CommandHandler {

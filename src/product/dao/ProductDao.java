@@ -32,8 +32,9 @@ public class ProductDao {
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			Product product = null;
+			String product_no = "product_no";
 			if (rs.next()) {
-				product = convertProduct(rs);
+				product = convertProduct(rs, product_no);
 			}
 			return product;
 		} finally {
@@ -49,37 +50,44 @@ public class ProductDao {
 		}
 	}
 
-	public int selectCount(Connection conn) throws SQLException {
-		Statement stmt = null;
+	public int selectCount(Connection conn, String search) throws SQLException {
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT count(*) FROM product ");
+			pstmt = conn.prepareStatement("SELECT count(*) FROM product p, product_content c " +
+					"WHERE p.product_no = c.product_no AND CONCAT(title, content) LIKE ? ");
+			pstmt.setString(1, "%" + search + "%");
+			
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1);
 			}
 
 			return 0;
 		} finally {
-			JdbcUtil.close(rs, stmt);
+			JdbcUtil.close(rs, pstmt);
 		}
 	}
 
-	public List<Product> select(Connection conn, int startRow, int size) throws SQLException {
+	public List<Product> select(Connection conn, int startRow, int size, String search) throws SQLException {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM product " + "ORDER BY product_no DESC LIMIT ?, ? ");
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, size);
+			pstmt = conn.prepareStatement("SELECT p.product_no, writer_id, writer_name, title, regdate, moddate, read_cnt FROM product p, product_content c " + 
+					"WHERE p.product_no = c.product_no AND CONCAT(title, content) LIKE ? " +	
+					"ORDER BY product_no DESC LIMIT ?, ? ");
+			pstmt.setString(1, "%" + search + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, size);
 
 			rs = pstmt.executeQuery();
+			String product_no = "p.product_no";
 			List<Product> result = new ArrayList<>();
 			while (rs.next()) {
-				result.add(convertProduct(rs));
+				result.add(convertProduct(rs, product_no));
 			}
 			return result;
 
@@ -88,8 +96,8 @@ public class ProductDao {
 		}
 	}
 
-	private Product convertProduct(ResultSet rs) throws SQLException {
-		return new Product(rs.getInt("product_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
+	private Product convertProduct(ResultSet rs, String product_no) throws SQLException {
+		return new Product(rs.getInt(product_no), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
 				rs.getString("title"), toDate(rs.getTimestamp("regdate")), toDate(rs.getTimestamp("moddate")),
 				rs.getInt("read_cnt"));
 	}

@@ -3,10 +3,10 @@ package product.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import comment.service.GetMessageListService;
-import comment.service.GetMessageNoMax;
-import comment.service.MessageListView;
 import mvc.controller.CommandHandler;
+import prodComment.service.GetMessageListService;
+import prodComment.service.GetMessageNoMax;
+import prodComment.service.MessageListView;
 import product.service.ProductContentNotFoundException;
 import product.service.ProductData;
 import product.service.ProductNotFoundException;
@@ -45,12 +45,12 @@ public class ReadProductHandler implements CommandHandler {
 		GetMessageNoMax getMaxNo = GetMessageNoMax.getInstance();
 		int maxMessageNo = getMaxNo.getMessageNoMax();
 		
-		MessageListView[] viewData = new MessageListView[maxMessageNo];
+		MessageListView[] arrayProdReplyData = new MessageListView[maxMessageNo];
 		
 		for (int i=0; i<maxMessageNo; i++ ) {
-			viewData[i] = messageListService.getMessageList(pageNumber, productNum, i);
+			arrayProdReplyData[i] = messageListService.getMessageList(pageNumber, productNum, i);
 		}
-		req.setAttribute("viewData", viewData);
+		req.setAttribute("arrayProdReplyData", arrayProdReplyData);
 		
 		
 		

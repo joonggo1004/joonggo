@@ -1,4 +1,4 @@
-package comment.command;
+package prodComment.command;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import comment.model.Message;
-import comment.service.WriteMessageService;
 import mvc.controller.CommandHandler;
+import prodComment.model.Message;
+import prodComment.service.WriteMessageService;
 
 public class WriteReplyHandler implements CommandHandler{
 	

@@ -13,12 +13,18 @@ public class ListProductHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String search = "";
+		if(req.getParameter("search") != null) {
+			search = req.getParameter("search");
+		}
+		
 		String pageNoVal = req.getParameter("pageNo");
 		int pageNo = 1;
 		if (pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
-		ProductPage productPage = listService.getProductPage(pageNo);
+		
+		ProductPage productPage = listService.getProductPage(pageNo, search);
 		req.setAttribute("productPage", productPage);
 		return "/WEB-INF/view/product/listProduct.jsp";
 	}

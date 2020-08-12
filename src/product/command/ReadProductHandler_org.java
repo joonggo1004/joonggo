@@ -3,9 +3,9 @@ package product.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import comment.service.GetMessageListService;
-import comment.service.MessageListView;
 import mvc.controller.CommandHandler;
+import prodComment.service.GetMessageListService;
+import prodComment.service.MessageListView;
 import product.service.ProductContentNotFoundException;
 import product.service.ProductData;
 import product.service.ProductNotFoundException;

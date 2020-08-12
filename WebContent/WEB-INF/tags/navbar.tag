@@ -26,7 +26,7 @@
 				<!--<a class="nav-link nav-item ${current.write }"
 					data-toggle="modal" href="#reportModal">Contact US</a> -->
 				<a class="nav-link nav-item ${current.write }"
-					href="${ctxPath }/myPage.do">MyPage(${authUser.name}[${authUser.id}]님)</a>
+					href="${ctxPath }/myPage.do">MyPage( ${authUser.name} [ id: ${authUser.id} ]님 )</a>
 				<a class="nav-link nav-item ${current.write }"
 					href="${ctxPath }/product/write.do">작성</a>
 				<a class="nav-link nav-item ${current.logout }"

@@ -1,13 +1,10 @@
-package comment.service;
+package notComment.service;
 
 import java.sql.Connection;
-import java.util.Collections;
-import java.util.List;
 
-import comment.dao.MessageDao;
-import jdbc.connection.ConnectionProvider;
 import jdbc.JdbcUtil;
-import comment.model.Message;
+import jdbc.connection.ConnectionProvider;
+import notComment.dao.MessageDao;
 
 public class GetMessageNoMax {
 	

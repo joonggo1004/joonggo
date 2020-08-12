@@ -49,6 +49,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<a class="btn btn-secondary float-right" href="write.do">작성</a>
 	</div>
 
 	<div class="container mt-3">

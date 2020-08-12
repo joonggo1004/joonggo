@@ -1,13 +1,12 @@
-package myActivity.service;
+package prodComment.service;
 
 import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
 
-import myActivity.dao.MessageDao;
-import prodComment.model.Message;
-import prodComment.service.MessageListView;
 import jdbc.connection.ConnectionProvider;
+import prodComment.dao.MessageDao;
+import prodComment.model.Message;
 import jdbc.JdbcUtil;
 
 public class GetMessageListService {
@@ -24,14 +23,14 @@ private static GetMessageListService instance = new GetMessageListService();
 	
 	private static final int MESSAGE_COUNT_PER_PAGE = 3;
 	
-	public MessageListView getMessageList(int pageNumber, String userId) {
+	public MessageListView getMessageList(int pageNumber, int productNo, int parentNo) {
 		Connection conn = null;
 		int currentPageNumber = pageNumber;
 		try {
 			conn = ConnectionProvider.getConnection();
 			MessageDao messageDao = MessageDao.getInstance();
 			
-			int messageTotalCount = messageDao.selectCount(conn, userId);
+			int messageTotalCount = messageDao.selectCount(conn, productNo, parentNo);
 			
 			List<Message> messageList = null;
 			int firstRow = 0;
@@ -39,7 +38,7 @@ private static GetMessageListService instance = new GetMessageListService();
 			if (messageTotalCount > 0) {
 				firstRow = (pageNumber-1) * MESSAGE_COUNT_PER_PAGE + 1;
 				endRow = firstRow + MESSAGE_COUNT_PER_PAGE - 1;
-				messageList = messageDao.selectList(conn, firstRow, endRow, userId);
+				messageList = messageDao.selectList(conn, firstRow, endRow, productNo, parentNo);
 			} else {
 				currentPageNumber = 0;
 				messageList = Collections.emptyList();

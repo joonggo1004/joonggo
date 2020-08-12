@@ -1,8 +1,8 @@
-package comment.service;
+package prodComment.service;
 
 import java.util.List;
 
-import comment.model.Message;
+import prodComment.model.Message;
 
 public class MessageListView {
 	

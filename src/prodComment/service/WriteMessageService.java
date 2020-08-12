@@ -1,11 +1,11 @@
-package comment.service;
+package prodComment.service;
 
 import java.sql.Connection;
 
-import comment.dao.MessageDao;
 import jdbc.connection.ConnectionProvider;
+import prodComment.dao.MessageDao;
+import prodComment.model.Message;
 import jdbc.JdbcUtil;
-import comment.model.Message;
 
 public class WriteMessageService {
 	

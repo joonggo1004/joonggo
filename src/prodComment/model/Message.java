@@ -1,4 +1,4 @@
-package comment.model;
+package prodComment.model;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ public class Message {
 	
 	@Override
 	public String toString() {
-		return "Message [id=" + no + ", productNo=" + productNo + ", guestName=" + guestName + ", message=" + message
+		return "Message [id=" + no + ", productNo=" + productNo + ", parentNo=" + parentNo + ", guestName=" + guestName + ", message=" + message
 				+ "]";
 	}
 	

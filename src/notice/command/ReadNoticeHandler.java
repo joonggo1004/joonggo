@@ -3,14 +3,14 @@ package notice.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import comment.service.GetMessageListService;
-import comment.service.GetMessageNoMax;
-import comment.service.MessageListView;
 import mvc.controller.CommandHandler;
 import notice.service.NoticeContentNotFoundException;
 import notice.service.NoticeData;
 import notice.service.NoticeNotFoundException;
 import notice.service.ReadNoticeService;
+import notComment.service.GetMessageListService;
+import notComment.service.GetMessageNoMax;
+import notComment.service.MessageListView;
 
 public class ReadNoticeHandler implements CommandHandler {
 	
@@ -45,12 +45,12 @@ public class ReadNoticeHandler implements CommandHandler {
 		GetMessageNoMax getMaxNo = GetMessageNoMax.getInstance();
 		int maxMessageNo = getMaxNo.getMessageNoMax();
 		
-		MessageListView[] viewData = new MessageListView[maxMessageNo];
+		MessageListView[] arrayNotReplyData = new MessageListView[maxMessageNo];
 		
 		for (int i=0; i<maxMessageNo; i++ ) {
-			viewData[i] = messageListService.getMessageList(pageNumber, noticeNum, i);
+			arrayNotReplyData[i] = messageListService.getMessageList(pageNumber, noticeNum, i);
 		}
-		req.setAttribute("viewData", viewData);
+		req.setAttribute("arrayNotReplyData", arrayNotReplyData);
 		
 		
 		
