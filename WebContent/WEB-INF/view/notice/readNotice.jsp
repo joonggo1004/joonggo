@@ -107,7 +107,7 @@
 							${i=status.index;'' }
 							<button class="btn btn-outline-primary" type="button" onclick="replyFct(${i})">응답</button> 
 							
-							<form class="form-inline" id="reply${i }" style="display:none" action="${ctxPath }/notComment/writeReply.do" method="post">
+							<form class="form-inline" id="reply${i }" style="display:none" action="${ctxPath }/notComment/writeReply.do?page=${arrayNotReplyData[0].currentPageNumber}" method="post">
 								<input type="number" name="index" value="${i }" hidden="hidden" />
 								<input type="number" name="noticeNo" value="${noticeData.notice.number }" hidden="hidden" />
 								<input type="number" name="parentNo" value="${message.no }" hidden="hidden" />
@@ -146,9 +146,20 @@
 				</c:forEach>
 			</table>
 			
-			<c:forEach var="pageNum" begin="1" end="${arrayNotReplyData[0].pageTotalCount }">
-			<a href="${ctxPath }/notice/read.do?no=${noticeData.notice.number}&&page=${pageNum }">[${pageNum }]</a>
-			</c:forEach>
+			<div class="container mt-3">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<c:forEach var="pageNum" begin="1" end="${arrayNotReplyData[0].pageTotalCount }">
+							<c:if test="${arrayNotReplyData[0].currentPageNumber == pageNum}">
+								<li class="page-item active"><a class="page-link" href="${ctxPath }/notice/read.do?no=${noticeData.notice.number}&&page=${pageNum }">${pageNum }</a></li>
+							</c:if>
+							<c:if test="${arrayNotReplyData[0].currentPageNumber != pageNum}">
+								<li class="page-item"><a class="page-link" href="${ctxPath }/notice/read.do?no=${noticeData.notice.number}&&page=${pageNum }">${pageNum }</a></li>
+							</c:if>
+						</c:forEach>
+					</ul>
+				</nav>
+			</div>
 		
 		</c:if>
 	</c:if>

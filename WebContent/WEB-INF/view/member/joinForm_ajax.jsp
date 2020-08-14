@@ -14,27 +14,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script>
-	function registerCheckFunction() {
-		var userID = $('#input1').val();
-		$.ajax({
-			type: 'POST',
-			url: './UserRegisterCheckServlet',
-			data: {userID: userID},
-			success: function(result) {
-				if (result == 1) {
-					$('#checkMessage').html('사용할 수 있는 아이디입니다.');
-					$('#checkType').attr('class', 'modal-header bg-success');
-				} else {
-					$('#checkMessage').html('사용할 수 없는 아이디입니다.');
-					$('#checkType').attr('class', 'modal-header bg-warning');
-				}
-				$('#checkModal').modal("show");
-			}
-		});
-	}
 	function passwordCheckFunction() {
-		var userPassword1 = $('#userPassword1').val();
-		var userPassword2 = $('#userPassword2').val();
+		var userPassword1 = $('#input2').val();
+		var userPassword2 = $('#input3').val();
 		if (userPassword1 != userPassword2){
 			$('#passwordCheckMessage').html('비밀번호가 서로 일치하지 않습니다.');
 		} else {
@@ -63,22 +45,21 @@
 			</div>
 
 			<div class="form-group">
-				<label for="input2">암호</label> <input type="password"
-					class="form-control" name="password" id="input2" >
+				<label for="input2">암호</label> <input type="password" class="form-control" name="password" id="input2" onkeyup="passwordCheckFunction();">
 
-				<small class="form-text text-muted"> <c:if
-						test="${errors.password }">암호를 입력하세요.</c:if>
+				<small class="form-text text-muted"> 
+					<c:if test="${errors.password }">암호를 입력하세요.</c:if>
 				</small>
 			</div>
 
 			<div class="form-group">
-				<label for="input3">확인</label> <input type="password"
-					class="form-control" name="confirmPassword" id="input3" >
+				<label for="input3">확인</label> <input type="password" class="form-control" name="confirmPassword" id="input3" onkeyup="passwordCheckFunction();">
 
-				<small class="form-text text-muted"> <c:if
-						test="${errors.confirmPassword }">확인을 입력하세요.</c:if> <c:if
-						test="${errors.notMatch }">암호와 확인이 일치하지 않습니다.</c:if>
+				<small class="form-text text-muted">
+					<c:if test="${errors.confirmPassword }">확인을 입력하세요.</c:if>
+					<c:if test="${errors.notMatch }">암호와 확인이 일치하지 않습니다.</c:if>
 				</small>
+				<h5 style="color: red;" id="passwordCheckMessage"></h5>
 			</div>
 			
 			<div class="form-group">

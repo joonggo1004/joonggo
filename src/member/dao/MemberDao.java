@@ -29,6 +29,8 @@ public class MemberDao {
 						rs.getString("name"),
 						rs.getString("phone"),
 						rs.getString("email"),
+						rs.getString("emailHash"),
+						rs.getBoolean("emailChecked"),
 						toDate(rs.getTimestamp("regdate")));
 			}
 			return member;
@@ -45,13 +47,14 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		try {
 			
-			pstmt = conn.prepareStatement("insert into member values (?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("insert into member values (?,?,?,?,?,?,false,?)");
 			pstmt.setString(1, mem.getId());
 			pstmt.setString(2, mem.getPassword());
 			pstmt.setString(3, mem.getName());
 			pstmt.setString(4, mem.getPhone());
 			pstmt.setString(5, mem.getEmail());
-			pstmt.setTimestamp(6, new Timestamp(mem.getRegDate().getTime()));
+			pstmt.setString(6, mem.getEmailHash());
+			pstmt.setTimestamp(7, new Timestamp(mem.getRegDate().getTime()));
 			pstmt.executeUpdate();
 		} finally {
 			JdbcUtil.close(pstmt);

@@ -32,6 +32,12 @@ public class WriteReplyHandler implements CommandHandler{
 	}
 
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String commentPageNoStr = request.getParameter("page");
+		int commentPageNo = 1;
+		if (commentPageNoStr != null) {
+			commentPageNo = Integer.parseInt(commentPageNoStr);
+		}
+		
 		Map<String, Boolean> errors = new HashMap<>();
 		request.setAttribute("errors", errors);
 		
@@ -67,7 +73,7 @@ public class WriteReplyHandler implements CommandHandler{
 			}
 		}
 		
-		return "/product/read.do?no="+productNo;
+		return "/product/read.do?no="+productNo+"&&page="+commentPageNo;
 	}
 
 }

@@ -98,16 +98,18 @@ public class MessageDao {
 	}
 	
 	public int selectCount(Connection conn, int noticeNo, int parentNo) throws SQLException {
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select count(*) from not_comment where notice_no ="+ noticeNo +" and parent_no = " + parentNo + " group by notice_no");
+			pstmt = conn.prepareStatement("select count(*) from not_comment where notice_no = ? and parent_no = ?");
+			pstmt.setInt(1, noticeNo);
+			pstmt.setInt(2, parentNo);
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getInt(1);
 			} else return 0;
 		} finally {
-			JdbcUtil.close(rs,stmt);
+			JdbcUtil.close(rs,pstmt);
 		}
 	}
 	
@@ -129,8 +131,7 @@ public class MessageDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"select * from not_comment "+
-					"where notice_no = ? and parent_no = ? order by message_no desc limit ?, ?");
+					"select * from not_comment where notice_no = ? and parent_no = ? order by message_no desc limit ?, ?");
 			pstmt.setInt(1, noticeNo);
 			pstmt.setInt(2, parentNo);
 			pstmt.setInt(3, firstRow-1);

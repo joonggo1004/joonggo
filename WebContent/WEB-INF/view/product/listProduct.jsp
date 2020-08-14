@@ -38,8 +38,7 @@
 				<c:forEach var="product" items="${productPage.content }">
 					<tr>
 						<td>${product.number }</td>
-						<td><a
-							href="${ctxPath }/product/read.do?no=${product.number }&pageNo=${productPage.currentPage}">
+						<td><a href="${ctxPath }/product/read.do?no=${product.number }">
 								<c:out value="${product.title }"></c:out>
 						</a></td>
 						<td>${product.writer.name }</td>
@@ -61,7 +60,12 @@
 				</c:if>
 				<c:forEach var="pNo" begin="${productPage.startPage }"
 					end="${productPage.endPage }">
-					<li class="page-item"><a class="page-link" href="${ctxPath }/article/list.do?pageNo=${pNo }">${pNo }</a></li>
+					<c:if test="${productPage.currentPage == pNo}">
+						<li class="page-item active"><a class="page-link" href="${ctxPath }/product/list.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
+					<c:if test="${productPage.currentPage != pNo}">
+						<li class="page-item"><a class="page-link" href="${ctxPath }/product/list.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
 				</c:forEach>
 				<c:if test="${productPage.endPage < productPage.totalPages }">
 					<li class="page-item"><a class="page-link"

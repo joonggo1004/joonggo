@@ -13,6 +13,7 @@ import java.util.List;
 import jdbc.JdbcUtil;
 import notice.model.Notice;
 import notice.model.Writer;
+import product.model.Product;
 
 public class NoticeDao {
 
@@ -32,8 +33,9 @@ public class NoticeDao {
 			pstmt.setInt(1, no);
 			rs = pstmt.executeQuery();
 			Notice notice = null;
+			String notice_no = "notice_no";
 			if (rs.next()) {
-				notice = convertNotice(rs);
+				notice = convertNotice(rs, notice_no);
 			}
 			return notice;
 		} finally {
@@ -49,37 +51,43 @@ public class NoticeDao {
 		}
 	}
 
-	public int selectCount(Connection conn) throws SQLException {
-		Statement stmt = null;
+	public int selectCount(Connection conn, String search) throws SQLException {
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT count(*) FROM notice ");
+			pstmt = conn.prepareStatement("SELECT count(*) FROM notice n, notice_content c " +
+					"WHERE n.notice_no = c.notice_no AND CONCAT(title, content) LIKE ? ");
+			pstmt.setString(1, "%" + search + "%");
+			
+			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1);
 			}
 
 			return 0;
 		} finally {
-			JdbcUtil.close(rs, stmt);
+			JdbcUtil.close(rs, pstmt);
 		}
 	}
 
-	public List<Notice> select(Connection conn, int startRow, int size) throws SQLException {
-
+	public List<Notice> select(Connection conn, int startRow, int size, String search) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			pstmt = conn.prepareStatement("SELECT * FROM notice " + "ORDER BY notice_no DESC LIMIT ?, ? ");
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, size);
+			pstmt = conn.prepareStatement("SELECT n.notice_no, writer_id, writer_name, title, regdate, moddate, read_cnt FROM notice n, notice_content c " + 
+					"WHERE n.notice_no = c.notice_no AND CONCAT(title, content) LIKE ? " +	
+					"ORDER BY notice_no DESC LIMIT ?, ? ");
+			pstmt.setString(1, "%" + search + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, size);
 
 			rs = pstmt.executeQuery();
+			String notice_no = "n.notice_no";
 			List<Notice> result = new ArrayList<>();
 			while (rs.next()) {
-				result.add(convertNotice(rs));
+				result.add(convertNotice(rs, notice_no));
 			}
 			return result;
 
@@ -88,7 +96,7 @@ public class NoticeDao {
 		}
 	}
 
-	private Notice convertNotice(ResultSet rs) throws SQLException {
+	private Notice convertNotice(ResultSet rs, String notice_no) throws SQLException {
 		return new Notice(rs.getInt("notice_no"), new Writer(rs.getString("writer_id"), rs.getString("writer_name")),
 				rs.getString("title"), toDate(rs.getTimestamp("regdate")), toDate(rs.getTimestamp("moddate")),
 				rs.getInt("read_cnt"));

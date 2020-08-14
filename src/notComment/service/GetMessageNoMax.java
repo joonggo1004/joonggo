@@ -18,8 +18,6 @@ private static GetMessageNoMax instance = new GetMessageNoMax();
 		
 	}
 	
-	private static final int MESSAGE_COUNT_PER_PAGE = 3;
-	
 	public int getMessageNoMax() {
 		Connection conn = null;
 		try {

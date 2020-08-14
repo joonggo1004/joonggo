@@ -1,13 +1,10 @@
 package prodComment.service;
 
 import java.sql.Connection;
-import java.util.Collections;
-import java.util.List;
 
+import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 import prodComment.dao.MessageDao;
-import prodComment.model.Message;
-import jdbc.JdbcUtil;
 
 public class GetMessageNoMax {
 	
@@ -20,8 +17,6 @@ private static GetMessageNoMax instance = new GetMessageNoMax();
 	private GetMessageNoMax() {
 		
 	}
-	
-	private static final int MESSAGE_COUNT_PER_PAGE = 3;
 	
 	public int getMessageNoMax() {
 		Connection conn = null;

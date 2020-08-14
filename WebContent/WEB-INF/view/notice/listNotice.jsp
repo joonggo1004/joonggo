@@ -17,7 +17,7 @@
 <title>게시글 목록</title>
 </head>
 <body>
-<u:navbar list="active" />
+<u:navbar notList="active" />
 	<div class="container">
 		<table class="table">
 			<thead>
@@ -39,7 +39,7 @@
 					<tr>
 						<td>${notice.number }</td>
 						<td><a
-							href="${ctxPath }/notice/read.do?no=${notice.number }&pageNo=${noticePage.currentPage}">
+							href="${ctxPath }/notice/read.do?no=${notice.number }">
 								<c:out value="${notice.title }"></c:out>
 						</a></td>
 						<td>${notice.writer.name }</td>
@@ -49,7 +49,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a class="btn btn-secondary float-right" href="write.do">작성</a>
 	</div>
 
 	<div class="container mt-3">
@@ -62,7 +61,12 @@
 				</c:if>
 				<c:forEach var="pNo" begin="${noticePage.startPage }"
 					end="${noticePage.endPage }">
-					<li class="page-item"><a class="page-link" href="${ctxPath }/article/list.do?pageNo=${pNo }">${pNo }</a></li>
+					<c:if test="${noticePage.currentPage == pNo}">
+						<li class="page-item active"><a class="page-link" href="${ctxPath }/notice/list.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
+					<c:if test="${noticePage.currentPage != pNo}">
+						<li class="page-item"><a class="page-link" href="${ctxPath }/notice/list.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
 				</c:forEach>
 				<c:if test="${noticePage.endPage < noticePage.totalPages }">
 					<li class="page-item"><a class="page-link"
@@ -70,6 +74,13 @@
 				</c:if>
 			</ul>
 		</nav>
+	</div>
+	<div class="container inline">
+		<form action="list.do" method="get" class="form-inline my-2 my-lg-0 float-right">
+			<input type="text" name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요." aria-label="Search"/>
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+		</form>
+		<a class="btn btn-danger float-right" href="write.do">작성</a>
 	</div>
 </body>
 </html>

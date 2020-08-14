@@ -21,6 +21,48 @@
 		expression = "reply"+index;
 		document.getElementById(expression).style.display = "block";
 	}
+	function writeCommentFunction() {
+		$.ajax({
+			type: 'POST',
+			dataType:"json",
+			url: './WriteAjaxComment.do',
+			data: {productNo:${productData.product.number },
+				id:${authUser.id },
+				name:${authUser.name },
+				message:$("#message").val(),
+				pageNumber,
+				productNum
+			},
+			success: function(result) {
+				if (result == 1) {
+					;
+				} else {
+					;
+				}
+				
+			
+			}
+		});
+	}
+	function commentListFunction() {
+		$.ajax({
+			type: "POST",
+			url: "./commentListServlet",
+			data: {
+				listType: type,
+			},
+			success: function(data) {
+				if(data == "") return;
+				var parsed = JSON.parse(data);
+				var result = parsed.result;
+				for(var i = 0; i < result.length; i++) {
+					addChat(result[i][0].value, result[i][1].value, result[i][2].value);
+				}
+				lastID = Number(parsed.last);
+				//alert(lastID);
+			}
+		});
+	}
 </script>
 
 <title>게시글 읽기</title>
@@ -82,20 +124,20 @@
 	
 	<c:if test="${authUser != null }">
 		<div class="container">
-			<form action="${ctxPath }/prodComment/writeComment.do" method="post">
-				<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
-				<input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
-				<input type="text" name="name" value="${authUser.name }" hidden="hidden"/>
+			
+				<input id="productNo" type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
+				<input id="id" type="text" name="id" value="${authUser.id }" hidden="hidden"/>
+				<input id="name" type="text" name="name" value="${authUser.name }" hidden="hidden"/>
 				
 				<div class="form-group">
 					<label for="textarea1">${authUser.name }:</label>
-					<textarea class="form-control" name="message" id="textarea1" rows="1"></textarea>
+					<textarea id="message" class="form-control" name="message" id="textarea1" rows="1"></textarea>
 					<small class="form-text text-muted">
 						<c:if test="${errors.message }">내용을 입력하세요.</c:if>
 					</small>
 				</div> 
-				<input class="btn btn-primary" type="submit" value="댓글 남기기" />
-			</form>
+				<button class="btn btn-primary" type="button" onclick="writeCommentFunction();" >댓글 남기기</button>
+			
 		</div>
 		
 		<c:if test="${!arrayProdReplyData[0].isEmpty() }">
@@ -107,7 +149,7 @@
 							${i=status.index;'' }
 							<button class="btn btn-outline-primary" type="button" onclick="replyFct(${i})">응답</button> 
 							
-							<form class="form-inline" id="reply${i }" style="display:none" action="${ctxPath }/prodComment/writeReply.do?page=${arrayProdReplyData[0].currentPageNumber}" method="post">
+							<form class="form-inline" id="reply${i }" style="display:none" action="${ctxPath }/prodComment/writeReply.do" method="post">
 								<input type="number" name="index" value="${i }" hidden="hidden" />
 								<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
 								<input type="number" name="parentNo" value="${message.no }" hidden="hidden" />
@@ -127,15 +169,15 @@
 								${j=status.index;'' }
 								<c:if test="${(j!=0) && !view.isEmpty() }">
 									<c:if test="${message.no == view.messageList[0].parentNo }">
-										<table class="table">
-											<c:forEach var="reply" items="${view.messageList }" >
-												<tr>
-													<td>
-														응답: ${reply.guestName }(${reply.regDate.toLocaleString() }): ${reply.message } <br />
-													</td>
-												</tr>
-											</c:forEach>
-										</table>
+									<table class="table">
+										<c:forEach var="reply" items="${view.messageList }" >
+											<tr>
+												<td>
+													응답: ${reply.guestName }(${reply.regDate.toLocaleString() }): ${reply.message } <br />
+												</td>
+											</tr>
+										</c:forEach>
+									</table>
 									</c:if>
 								</c:if>
 							</c:forEach>
@@ -146,20 +188,9 @@
 				</c:forEach>
 			</table>
 			
-			<div class="container mt-3">
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center">
-						<c:forEach var="pageNum" begin="1" end="${arrayProdReplyData[0].pageTotalCount }">
-							<c:if test="${arrayProdReplyData[0].currentPageNumber == pageNum}">
-								<li class="page-item active"><a class="page-link" href="${ctxPath }/product/read.do?no=${productData.product.number}&&page=${pageNum }">${pageNum }</a></li>
-							</c:if>
-							<c:if test="${arrayProdReplyData[0].currentPageNumber != pageNum}">
-								<li class="page-item"><a class="page-link" href="${ctxPath }/product/read.do?no=${productData.product.number}&&page=${pageNum }">${pageNum }</a></li>
-							</c:if>
-						</c:forEach>
-					</ul>
-				</nav>
-			</div>
+			<c:forEach var="pageNum" begin="1" end="${arrayProdReplyData[0].pageTotalCount }">
+			<a href="${ctxPath }/product/read.do?no=${productData.product.number}&&page=${pageNum }">[${pageNum }]</a>
+			</c:forEach>
 		
 		</c:if>
 	</c:if>

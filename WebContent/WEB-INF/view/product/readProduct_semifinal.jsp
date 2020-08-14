@@ -21,26 +21,6 @@
 		expression = "reply"+index;
 		document.getElementById(expression).style.display = "block";
 	}
-	function writeCommentFunction() {
-		$.ajax({
-			type: 'POST',
-			dataType:"json",
-			url: './WriteAjaxComment.do',
-			data: {productNo:$("#productNo").val(),
-				id:$("#id").val(),
-				name:$("#name").val(),
-				message:$("#message").val()},
-			success: function(result) {
-				if (result == 1) {
-					;
-				} else {
-					;
-				}
-				
-			
-			}
-		});
-	}
 </script>
 
 <title>게시글 읽기</title>
@@ -102,20 +82,20 @@
 	
 	<c:if test="${authUser != null }">
 		<div class="container">
-			
-				<input id="productNo" type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
-				<input id="id" type="text" name="id" value="${authUser.id }" hidden="hidden"/>
-				<input id="name" type="text" name="name" value="${authUser.name }" hidden="hidden"/>
+			<form action="${ctxPath }/prodComment/writeComment.do" method="post">
+				<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
+				<input type="text" name="id" value="${authUser.id }" hidden="hidden"/>
+				<input type="text" name="name" value="${authUser.name }" hidden="hidden"/>
 				
 				<div class="form-group">
 					<label for="textarea1">${authUser.name }:</label>
-					<textarea id="message" class="form-control" name="message" id="textarea1" rows="1"></textarea>
+					<textarea class="form-control" name="message" id="textarea1" rows="1"></textarea>
 					<small class="form-text text-muted">
 						<c:if test="${errors.message }">내용을 입력하세요.</c:if>
 					</small>
 				</div> 
-				<button class="btn btn-primary" type="button" onclick="writeCommentFunction();" >댓글 남기기</button>
-			
+				<input class="btn btn-primary" type="submit" value="댓글 남기기" />
+			</form>
 		</div>
 		
 		<c:if test="${!arrayProdReplyData[0].isEmpty() }">
@@ -147,15 +127,15 @@
 								${j=status.index;'' }
 								<c:if test="${(j!=0) && !view.isEmpty() }">
 									<c:if test="${message.no == view.messageList[0].parentNo }">
-									<table class="table">
-										<c:forEach var="reply" items="${view.messageList }" >
-											<tr>
-												<td>
-													응답: ${reply.guestName }(${reply.regDate.toLocaleString() }): ${reply.message } <br />
-												</td>
-											</tr>
-										</c:forEach>
-									</table>
+										<table class="table">
+											<c:forEach var="reply" items="${view.messageList }" >
+												<tr>
+													<td>
+														응답: ${reply.guestName }(${reply.regDate.toLocaleString() }): ${reply.message } <br />
+													</td>
+												</tr>
+											</c:forEach>
+										</table>
 									</c:if>
 								</c:if>
 							</c:forEach>

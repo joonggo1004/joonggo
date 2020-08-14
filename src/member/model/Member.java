@@ -9,14 +9,18 @@ public class Member {
 	private String name;
 	private String phone;
 	private String email;
+	private String emailHash;
+	private boolean emailChecked;
 	private Date regDate;
 	
-	public Member(String id, String password, String name, String phone, String email, Date regDate) {
+	public Member(String id, String password, String name, String phone, String email, String emailHash, boolean emailChecked, Date regDate) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
+		this.emailHash = emailHash;
+		this.emailChecked = emailChecked;
 		this.regDate = regDate;
 	}
 	
@@ -49,6 +53,14 @@ public class Member {
 
 	public Date getRegDate() {
 		return regDate;
+	}
+	
+	public String getEmailHash() {
+		return emailHash;
+	}
+
+	public boolean isEmailChecked() {
+		return emailChecked;
 	}
 
 	public boolean matchPassword(String pwd) {

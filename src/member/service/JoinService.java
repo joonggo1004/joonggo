@@ -8,6 +8,7 @@ import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 import member.dao.MemberDao;
 import member.model.Member;
+import util.SHA256;
 
 public class JoinService {
 	
@@ -33,6 +34,8 @@ public class JoinService {
 							joinReq.getName(),
 							joinReq.getPhone(),
 							joinReq.getEmail(),
+							SHA256.getSHA256(joinReq.getEmail()),
+							false,
 							new Date())
 					);
 			conn.commit();

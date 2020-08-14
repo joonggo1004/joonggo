@@ -5,26 +5,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import mvc.controller.CommandHandler;
 import prodComment.service.GetMessageListService;
-import prodComment.service.GetMessageNoMax;
+import prodComment.service.GetMessageNoMax_useless;
 import prodComment.service.MessageListView;
 import product.service.ProductContentNotFoundException;
 import product.service.ProductData;
 import product.service.ProductNotFoundException;
 import product.service.ReadProductService;
 
-public class ReadProductHandler implements CommandHandler {
+public class ReadProductHandler_useless implements CommandHandler {
 	
 	private ReadProductService readService = new ReadProductService();
+	private static final int MESSAGE_COUNT_PER_PAGE = 3;
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String productNoStr = req.getParameter("no");
 		int productNo = Integer.parseInt(productNoStr);
 		
-		String commentPageNoStr = req.getParameter("page");
-		int commentPageNo = 1;
-		if (commentPageNoStr != null) {
-			commentPageNo = Integer.parseInt(commentPageNoStr);
+		String pageNumberStr = req.getParameter("page");
+		int pageNumber = 1;
+		if (pageNumberStr != null) {
+			pageNumber = Integer.parseInt(pageNumberStr);
 		}
 		
 		GetMessageListService messageListService = GetMessageListService.getInstance();
@@ -42,13 +43,20 @@ public class ReadProductHandler implements CommandHandler {
 		}
 		*/
 		
-		GetMessageNoMax getMaxNo = GetMessageNoMax.getInstance();
+		GetMessageNoMax_useless getMaxNo = GetMessageNoMax_useless.getInstance();
 		int maxMessageNo = getMaxNo.getMessageNoMax();
 		
 		MessageListView[] arrayProdReplyData = new MessageListView[maxMessageNo];
 		
+		int messageParentTotalCount = getMaxNo.getMessageParentNo(productNo);
+		int firstRow = 0;
+		int endRow = 0;
+		if (messageParentTotalCount > 0) {
+			firstRow = (pageNumber-1) * MESSAGE_COUNT_PER_PAGE + 1;
+			endRow = firstRow + MESSAGE_COUNT_PER_PAGE - 1;
+		}
 		for (int i=0; i<maxMessageNo; i++ ) {
-			arrayProdReplyData[i] = messageListService.getMessageList(commentPageNo, productNo, i);
+			arrayProdReplyData[i] = messageListService.getMessageList(pageNumber, productNo, i);
 		}
 		req.setAttribute("arrayProdReplyData", arrayProdReplyData);
 		

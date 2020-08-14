@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import auth.service.User;
 import member.service.DuplicateIdException;
 import member.service.JoinRequest;
 import member.service.JoinService;
@@ -35,8 +36,10 @@ public class JoinHandler implements CommandHandler {
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) {
 		
 		JoinRequest joinReq = new JoinRequest();
-		joinReq.setId(req.getParameter("id"));
-		joinReq.setPassword(req.getParameter("password"));
+		String id = req.getParameter("id");
+		String password = req.getParameter("password");
+		joinReq.setId(id);
+		joinReq.setPassword(password);
 		joinReq.setConfirmPassword(req.getParameter("confirmPassword"));
 		joinReq.setName(req.getParameter("name"));
 		joinReq.setPhone(req.getParameter("phone"));
@@ -54,6 +57,8 @@ public class JoinHandler implements CommandHandler {
 		try {
 			
 			joinService.join(joinReq);
+			User user = new User(id, password);
+			req.getSession().setAttribute("authUser", user);
 			return "/WEB-INF/view/member/joinSuccess.jsp";
 		} catch (DuplicateIdException e) {
 			e.printStackTrace();

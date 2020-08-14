@@ -13,31 +13,22 @@
 	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 		<div class="navbar-nav mr-auto">
 			<a class="nav-link nav-item ${current.home }" href="${ctxPath }">Home</a>
-			<a class="nav-link nav-item ${current.list }"
-				href="${ctxPath }/product/list.do">목록</a>
+			<a class="nav-link nav-item ${current.list }" href="${ctxPath }/product/list.do">목록</a>
 		</div>
 
 		<div class="navbar-nav ">
 			<c:if test="${not empty sessionScope.authUser }">
-				<a class="nav-link nav-item ${current.write }"
-					href="${ctxPath }/notice/list.do">공지사항</a>
-				<a class="nav-link nav-item ${current.write }"
-					href="${ctxPath }/contactUs.do">Contact US</a>
-				<!--<a class="nav-link nav-item ${current.write }"
-					data-toggle="modal" href="#reportModal">Contact US</a> -->
-				<a class="nav-link nav-item ${current.write }"
-					href="${ctxPath }/myPage.do">MyPage( ${authUser.name} [ id: ${authUser.id} ]님 )</a>
-				<a class="nav-link nav-item ${current.write }"
-					href="${ctxPath }/product/write.do">작성</a>
-				<a class="nav-link nav-item ${current.logout }"
-					href="${ctxPath }/logout.do">로그아웃</a>
+				<a class="nav-link nav-item ${current.notList }" href="${ctxPath }/notice/list.do">공지사항</a>
+				<a class="nav-link nav-item ${current.contact }" href="${ctxPath }/contactUs.do">Contact US</a>
+				<!--<a class="nav-link nav-item ${current.write }" data-toggle="modal" href="#reportModal">Contact US</a> -->
+				<a class="nav-link nav-item ${current.myPage }" href="${ctxPath }/myPage.do">MyPage( ${authUser.name} [ id: ${authUser.id} ]님 )</a>
+				<a class="nav-link nav-item ${current.write }" href="${ctxPath }/product/write.do">작성</a>
+				<a class="nav-link nav-item ${current.logout }" href="${ctxPath }/logout.do">로그아웃</a>
 			</c:if>
 
 			<c:if test="${empty sessionScope.authUser }">
-				<a class="nav-link nav-item ${current.join }"
-					href="${ctxPath }/join.do">회원가입</a>
-				<a class="nav-link nav-item ${current.login }"
-					href="${ctxPath }/login.do">로그인</a>
+				<a class="nav-link nav-item ${current.join }" href="${ctxPath }/join.do">회원가입</a>
+				<a class="nav-link nav-item ${current.login }" href="${ctxPath }/login.do">로그인</a>
 			</c:if>
 
 		</div>

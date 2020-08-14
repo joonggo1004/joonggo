@@ -13,6 +13,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+	function passwordCheckFunction() {
+		var userPassword1 = $('#input2').val();
+		var userPassword2 = $('#input3').val();
+		if (userPassword1 != userPassword2){
+			$('#passwordCheckMessage').html('비밀번호가 서로 일치하지 않습니다.');
+		} else {
+			$('#passwordCheckMessage').html('');
+		}
+	}
+</script>
 
 <title>가입</title>
 </head>
@@ -34,7 +45,7 @@
 
 			<div class="form-group">
 				<label for="input2">암호</label> <input type="password"
-					class="form-control" name="password" id="input2" required>
+					class="form-control" name="password" id="input2" required onkeyup="passwordCheckFunction();">
 
 				<small class="form-text text-muted"> <c:if
 						test="${errors.password }">암호를 입력하세요.</c:if>
@@ -43,12 +54,13 @@
 
 			<div class="form-group">
 				<label for="input3">확인</label> <input type="password"
-					class="form-control" name="confirmPassword" id="input3" required>
+					class="form-control" name="confirmPassword" id="input3" required onkeyup="passwordCheckFunction();">
 
 				<small class="form-text text-muted"> <c:if
 						test="${errors.confirmPassword }">확인을 입력하세요.</c:if> <c:if
 						test="${errors.notMatch }">암호와 확인이 일치하지 않습니다.</c:if>
 				</small>
+				<p style="color: red;" id="passwordCheckMessage"></p>
 			</div>
 			
 			<div class="form-group">

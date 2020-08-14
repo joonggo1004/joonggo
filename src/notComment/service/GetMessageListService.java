@@ -23,9 +23,9 @@ private static GetMessageListService instance = new GetMessageListService();
 	
 	private static final int MESSAGE_COUNT_PER_PAGE = 3;
 	
-	public MessageListView getMessageList(int pageNumber, int noticeNo, int parentNo) {
+	public MessageListView getMessageList(int commentPageNo, int noticeNo, int parentNo) {
 		Connection conn = null;
-		int currentPageNumber = pageNumber;
+		int currentPageNumber = commentPageNo;
 		try {
 			conn = ConnectionProvider.getConnection();
 			MessageDao messageDao = MessageDao.getInstance();
@@ -35,14 +35,21 @@ private static GetMessageListService instance = new GetMessageListService();
 			List<Message> messageList = null;
 			int firstRow = 0;
 			int endRow = 0;
+			
 			if (messageTotalCount > 0) {
-				firstRow = (pageNumber-1) * MESSAGE_COUNT_PER_PAGE + 1;
-				endRow = firstRow + MESSAGE_COUNT_PER_PAGE - 1;
+				if (parentNo == 0) {
+					firstRow = (commentPageNo-1) * MESSAGE_COUNT_PER_PAGE + 1;
+					endRow = firstRow + MESSAGE_COUNT_PER_PAGE - 1;
+				} else {
+					firstRow = 1;
+					endRow = messageTotalCount;
+				}
 				messageList = messageDao.selectList(conn, firstRow, endRow, noticeNo, parentNo);
 			} else {
 				currentPageNumber = 0;
 				messageList = Collections.emptyList();
 			}
+			
 			return new MessageListView(messageList, messageTotalCount, currentPageNumber,
 					MESSAGE_COUNT_PER_PAGE, firstRow, endRow);
 		} catch (Exception e) {

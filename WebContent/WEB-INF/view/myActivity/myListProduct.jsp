@@ -17,7 +17,7 @@
 <title>게시글 목록</title>
 </head>
 <body>
-<u:navbar list="active" />
+<u:navbar myPage="active" />
 	<div class="container"><div class="col-sm-12" style="text-align: center;"><h4>내가 올린 중고 제품들</h4></div></div>
 	<div class="container">
 		<table class="table">

@@ -8,6 +8,7 @@ import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 import member.dao.MemberDao;
 import member.model.Member;
+import util.SHA256;
 
 public class ModifyAccService {
 	
@@ -49,6 +50,8 @@ public class ModifyAccService {
 							modifyReq.getName(),
 							modifyReq.getPhone(),
 							modifyReq.getEmail(),
+							SHA256.getSHA256(modifyReq.getEmail()),
+							false,
 							new Date())
 					);
 			conn.commit();
