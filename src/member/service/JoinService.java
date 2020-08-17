@@ -17,17 +17,18 @@ public class JoinService {
 	public void join(JoinRequest joinReq) {
 		
 		Connection conn = null;
+		int result = 0;
 		try {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
 			
 			Member member = memberDao.selectById(conn, joinReq.getId());
-			if (member != null) {
+			if (member != null) { // 이미 존재하는 아이디
 				JdbcUtil.rollback(conn);
 				throw new DuplicateIdException();
 			}
 			
-			memberDao.insert(conn,
+			result = memberDao.insert(conn,
 					new Member(
 							joinReq.getId(),
 							joinReq.getPassword(),
@@ -38,6 +39,7 @@ public class JoinService {
 							false,
 							new Date())
 					);
+			if(result != 1) throw new JoinSQLException();
 			conn.commit();
 			
 		} catch (SQLException e) {

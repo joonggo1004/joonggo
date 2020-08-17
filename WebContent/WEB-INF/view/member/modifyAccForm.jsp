@@ -13,6 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <title>가입</title>
 </head>
@@ -23,11 +24,11 @@
 
 		<form action="modifyAccount.do" method="post">
 			<div class="form-group">
-				<label for="input1">아이디: </label> ${authUser.id }
+				<label for="input1">아이디: ${authUser.id }</label>
 			</div>
 
 			<div class="form-group">
-				<label for="input2">이름: </label> ${authUser.name }
+				<label for="input2">이름: ${authUser.name }</label>
 			</div>
 			
 			<div class="form-group">
@@ -69,5 +70,8 @@
 
 		</form>
 	</div>
+	
+<u:footer />
+
 </body>
 </html>

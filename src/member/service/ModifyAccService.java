@@ -51,7 +51,7 @@ public class ModifyAccService {
 							modifyReq.getPhone(),
 							modifyReq.getEmail(),
 							SHA256.getSHA256(modifyReq.getEmail()),
-							false,
+							true,
 							new Date())
 					);
 			conn.commit();

@@ -33,7 +33,7 @@ public class MessageDao {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"insert into comment "+
+					"insert into prod_comment "+
 					"(product_no, parent_no, guest_id, guest_name, message, regdate) values (?,?,?,?,?,now())"); //p.448
 			pstmt.setInt(1, message.getProductNo());
 			pstmt.setInt(2, message.getParentNo());
@@ -51,7 +51,7 @@ public class MessageDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"select * from comment where message_no = ?");
+					"select * from prod_comment where message_no = ?");
 			pstmt.setInt(1, messageNo);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -68,7 +68,7 @@ public class MessageDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"select * from comment where parent_no = ? order by message_no desc");
+					"select * from prod_comment where parent_no = ? order by message_no desc");
 			pstmt.setInt(1, parentNo);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -102,7 +102,7 @@ public class MessageDao {
 		ResultSet rs = null;
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select count(*) from comment where guest_id ='"+ userId + "'");
+			rs = stmt.executeQuery("select count(*) from prod_comment where guest_id ='"+ userId + "'");
 			if(rs.next()) {
 				return rs.getInt(1);
 			} else return 0;
@@ -116,7 +116,7 @@ public class MessageDao {
 		ResultSet rs = null;
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select max(message_no) from comment");
+			rs = stmt.executeQuery("select max(message_no) from prod_comment");
 			rs.next();
 			return rs.getInt(1);
 		} finally {
@@ -129,7 +129,7 @@ public class MessageDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"select * from comment where guest_id = ? order by message_no desc limit ?, ?");
+					"select * from prod_comment where guest_id = ? order by message_no desc limit ?, ?");
 			pstmt.setString(1, userId);
 			pstmt.setInt(2, firstRow-1);
 			pstmt.setInt(3, endRow-firstRow+1);
@@ -162,7 +162,7 @@ public class MessageDao {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(
-					"delete from comment  where message_no = ?");
+					"delete from prod_comment  where message_no = ?");
 			pstmt.setInt(1, messageId);
 			return pstmt.executeUpdate();
 		} finally {

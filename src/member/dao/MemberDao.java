@@ -43,7 +43,7 @@ public class MemberDao {
 		return date == null? null: new Date(date.getTime());
 	}
 	
-	public void insert(Connection conn, Member mem) throws SQLException {
+	public int insert(Connection conn, Member mem) throws SQLException {
 		PreparedStatement pstmt = null;
 		try {
 			
@@ -55,21 +55,10 @@ public class MemberDao {
 			pstmt.setString(5, mem.getEmail());
 			pstmt.setString(6, mem.getEmailHash());
 			pstmt.setTimestamp(7, new Timestamp(mem.getRegDate().getTime()));
-			pstmt.executeUpdate();
+			return pstmt.executeUpdate();
 		} finally {
 			JdbcUtil.close(pstmt);
 		}
-		/*
-		try (PreparedStatement pstmt = conn.prepareStatement("insert into member values (?,?,?,?,?)")) {
-			pstmt.setString(1, mem.getId());
-			pstmt.setString(2, mem.getPassword());
-			pstmt.setString(3, mem.getName());
-			pstmt.setString(4, mem.getPhone());
-			pstmt.setString(5, mem.getEmail());
-			pstmt.setTimestamp(6, new Timestamp(mem.getRegDate().getTime()));
-			pstmt.executeUpdate();
-		}
-		*/
 	}
 	
 	public void update(Connection conn, Member member) throws SQLException {
@@ -82,6 +71,22 @@ public class MemberDao {
 			pstmt.setString(5, member.getId());
 			pstmt.executeUpdate();
 		}
+	}
+	
+	public int setEmailChecked(Connection conn, String userID) {
+		String SQL = "UPDATE MEMBER SET emailChecked = true WHERE memberid = ?";
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(pstmt);
+		}
+		return result;
 	}
 
 }

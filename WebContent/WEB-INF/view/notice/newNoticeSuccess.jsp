@@ -13,24 +13,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${ctxPath }/css/jumbotron.css">
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <title>공지사항 등록</title>
 </head>
 <body>
-<u:navbar write="active" />
+<u:navbar notice="active" />
 
-<div class="container mt-3">
-	<div class="jumbotron">
-		<h1 class="display-4">공지사항을 등록했습니다.</h1>
-		<hr class="my-4">
-		<br />
-		<br />
-		<br />
-		<a class="btn btn-primary btn-lg" href="${ctxPath }/notice/list.do" role="button">목록보기</a>
-		<a class="btn btn-primary btn-lg" href="${ctxPath }/notice/read.do?no=${newNoticeNo }" role="button">게시글내용보기</a>
+	<div class="container mt-3">
+		<div class="jumbotron">
+			<h1 class="display-4">공지사항을 등록했습니다.</h1>
+			<hr class="my-4">
+			<br />
+			<br />
+			<br />
+			<a class="btn btn-primary btn-lg" href="${ctxPath }/notice/list.do" role="button">목록보기</a>
+			<a class="btn btn-primary btn-lg" href="${ctxPath }/notice/read.do?no=${newNoticeNo }" role="button">게시글내용보기</a>
+		</div>
 	</div>
-</div>
+
+<u:footer />
 
 </body>
 </html>

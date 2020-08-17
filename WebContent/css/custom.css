@@ -1,0 +1,29 @@
+video {
+	position: fixed; right: 0; bottom: 0;
+	min-width: 100%; min-height: 100%;
+	width: auto; height: auto; z-index: -100;
+}
+#navigation {
+	opacity: 0.9;
+}
+.jumbotron {
+	background-image: url("../images/bluedragon1.jpg");
+	background-size: cover;
+	text-shadow: balck 0.2em 0.2em 0.2em;
+	color: white;
+	opacity: 0.9;
+}
+img {
+	max-width: 100%;
+}
+footer {
+	background-color: #000000;
+	color: #ffffff;
+	opacity: 0.9;
+}
+label {
+	color: white;
+}
+th {
+	text-align: center;
+}

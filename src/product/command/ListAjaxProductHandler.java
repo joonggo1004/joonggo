@@ -7,7 +7,7 @@ import mvc.controller.CommandHandler;
 import product.service.ListProductService;
 import product.service.ProductPage;
 
-public class ListProductHandler implements CommandHandler {
+public class ListAjaxProductHandler implements CommandHandler {
 	
 	private ListProductService listService = new ListProductService();
 
@@ -18,15 +18,15 @@ public class ListProductHandler implements CommandHandler {
 			search = req.getParameter("search");
 		}
 		
-		String pageNoStr = req.getParameter("pageNo");
+		String pageNoVal = req.getParameter("pageNo");
 		int pageNo = 1;
-		if (pageNoStr != null) {
-			pageNo = Integer.parseInt(pageNoStr);
+		if (pageNoVal != null) {
+			pageNo = Integer.parseInt(pageNoVal);
 		}
 		
 		ProductPage productPage = listService.getProductPage(pageNo, search);
 		req.setAttribute("productPage", productPage);
-		return "/WEB-INF/view/product/listProduct.jsp";
+		return "/WEB-INF/view/product/listAjaxProduct.jsp";
 	}
 	
 	

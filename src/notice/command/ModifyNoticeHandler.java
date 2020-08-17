@@ -65,15 +65,20 @@ public class ModifyNoticeHandler implements CommandHandler {
 
 	private String processSubmit(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
+		User authUser = (User) req.getSession().getAttribute("authUser");
+		String noticeNoStr = req.getParameter("no");
+		int noticeNo = Integer.parseInt(noticeNoStr);
+		
+		String orgFileName = readService.getNotice(noticeNo, false).getFileName();
+		
 		Part filePart = req.getPart("file1");
 		String fileName = filePart.getSubmittedFileName();
-		fileName = fileName == null ? "" : fileName;
+		//fileName = fileName == null ? "" : fileName;
+		if(fileName == null || fileName.isEmpty()) {
+			fileName = orgFileName;
+		}
 		
-		User authUser = (User) req.getSession().getAttribute("authUser");
-		String noVal = req.getParameter("no");
-		int no = Integer.parseInt(noVal);
-		
-		ModifyRequest modReq = new ModifyRequest(authUser.getId(), no, req.getParameter("title"), req.getParameter("content"), fileName);
+		ModifyRequest modReq = new ModifyRequest(authUser.getId(), noticeNo, req.getParameter("title"), req.getParameter("content"), fileName);
 		req.setAttribute("modReq", modReq);
 		
 		Map<String, Boolean> errors = new HashMap<>();
@@ -82,8 +87,8 @@ public class ModifyNoticeHandler implements CommandHandler {
 		if (!errors.isEmpty()) {
 			return FORM_VIEW;
 		}
-		if (!(fileName == null || fileName.isEmpty() || filePart.getSize() == 0)) {
-			writeFile.write(filePart, no);
+		if ((fileName != orgFileName) && !(fileName == null || fileName.isEmpty() || filePart.getSize() == 0)) {
+			writeFile.write(filePart, noticeNo);
 		}
 		try {
 			modifyService.modify(modReq);

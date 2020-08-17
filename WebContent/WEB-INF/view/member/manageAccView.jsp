@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${ctxPath }/css/jumbotron.css">
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <title>My Page</title>
 </head>
@@ -27,10 +27,10 @@
 		<br />
 		<br />
 		<br />
-		<a class="btn btn-primary btn-lg" href="${ctxPath }/modifyAccount.do" role="button">계정관리</a>
-		<a class="btn btn-primary btn-lg" href="${ctxPath }/myListProduct.do" role="button">나의활동</a>
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/modifyAccount.do" role="button">계정수정</a>
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/myPage/myListProduct.do" role="button">나의활동</a>
 	</div>
 </div>
-
+<u:footer />
 </body>
 </html>

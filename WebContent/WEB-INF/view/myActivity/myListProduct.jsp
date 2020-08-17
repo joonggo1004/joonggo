@@ -13,14 +13,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <title>게시글 목록</title>
 </head>
 <body>
 <u:navbar myPage="active" />
-	<div class="container"><div class="col-sm-12" style="text-align: center;"><h4>내가 올린 중고 제품들</h4></div></div>
+	<div class="container"><div class="col-sm-12" style="color: white; text-align: center;"><h4>내가 올린 중고 제품들</h4></div></div>
 	<div class="container">
-		<table class="table">
+		<table class="table table-dark table-striped">
 			<thead>
 				<tr>
 					<th style="width: 10%;">번호</th>
@@ -57,22 +58,30 @@
 			<ul class="pagination justify-content-center">
 				<c:if test="${productPage.startPage > 5 }">
 					<li class="page-item disabled"><a class="page-link"
-						href="${ctxPath }/product/list.do?pageNo=${productPage.startPage-5 }"
+						href="${ctxPath }/myPage/myListProduct.do?pageNo=${productPage.startPage-5 }"
 						tabindex="-1" aria-disabled="true">이전</a></li>
 				</c:if>
 				<c:forEach var="pNo" begin="${productPage.startPage }"
 					end="${productPage.endPage }">
-					<li class="page-item"><a class="page-link" href="${ctxPath }/article/list.do?pageNo=${pNo }">${pNo }</a></li>
+					<c:if test="${productPage.currentPage == pNo}">
+						<li class="page-item active"><a class="page-link" href="${ctxPath }/myPage/myListProduct.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
+					<c:if test="${productPage.currentPage != pNo}">
+						<li class="page-item"><a class="page-link" href="${ctxPath }/myPage/myListProduct.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
 				</c:forEach>
 				<c:if test="${productPage.endPage < productPage.totalPages }">
 					<li class="page-item"><a class="page-link"
-						href="${ctxPath }/product/list.do?pageNo=${productPage.startPage + 5 }">다음</a></li>
+						href="${ctxPath }/myPage/myListProduct.do?pageNo=${productPage.startPage + 5 }">다음</a></li>
 				</c:if>
 			</ul>
 		</nav>
 	</div>
 	<div class="container">
-		<a class="btn btn-primary btn-lg" href="${ctxPath }/myCommReply.do" role="button">내 댓글 목록보기</a>
+		<a class="btn btn-primary btn-lg" href="${ctxPath }/myPage/myCommReply.do" role="button">내 댓글 목록보기</a>
 	</div>
+
+<u:footer />
+
 </body>
 </html>

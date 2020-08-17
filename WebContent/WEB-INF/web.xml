@@ -47,11 +47,24 @@
     <filter-name>LoginCheckFilter</filter-name>
     <url-pattern>/myPage.do</url-pattern>
     <url-pattern>/modifyAccount.do</url-pattern>
+    <url-pattern>/myPage/myListProduct.do</url-pattern>
+    <url-pattern>/myPage/myCommReply.do</url-pattern>
+    <url-pattern>/member/emailAuthSend.do</url-pattern>
+    <url-pattern>/member/emailCheck.do</url-pattern>
     <url-pattern>/product/write.do</url-pattern>
     <url-pattern>/product/modify.do</url-pattern>
     <url-pattern>/product/delete.do</url-pattern>
-    <url-pattern>/comment/writeComment.do</url-pattern>
+    <url-pattern>/prodComment/writeComment.do</url-pattern>
+    <url-pattern>/prodComment/writeReply.do</url-pattern>
     <url-pattern>/contactUs.do</url-pattern>
+    <url-pattern>/notice/read.do</url-pattern>
+    <url-pattern>/notice/write.do</url-pattern>
+    <url-pattern>/notice/modify.do</url-pattern>
+    <url-pattern>/notice/delete.do</url-pattern>
+    <url-pattern>/notComment/writeComment.do</url-pattern>
+    <url-pattern>/notComment/writeReply.do</url-pattern>
+    <url-pattern>/product/writeAjaxComment.do</url-pattern>
+    <url-pattern>/product/listAjaxComment.do</url-pattern>
   </filter-mapping>
   
   <servlet>

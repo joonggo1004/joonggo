@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import auth.service.LoginFailException;
 import auth.service.LoginService;
 import auth.service.User;
+import member.service.EmailAuthService;
 import mvc.controller.CommandHandler;
 
 public class LoginHandler implements CommandHandler {
 	
 	private static final String FORM_VIEW = "/WEB-INF/view/loginForm.jsp";
 	private LoginService loginService = new LoginService();
+	private EmailAuthService emailAuth = new EmailAuthService();
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse res) throws Exception {

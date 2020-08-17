@@ -13,6 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 <script>
 	function passwordCheckFunction() {
 		var userPassword1 = $('#input2').val();
@@ -29,8 +30,11 @@
 </head>
 <body>
 
-	<u:navbar join="active" />
-
+<u:navbar join="active" />
+	
+	<c:if test="${not empty authUser}">
+		<jsp:forward page="/index.jsp"></jsp:forward>
+	</c:if>
 	<div class="container">
 
 		<form action="join.do" method="post">
@@ -88,10 +92,13 @@
 			</div>
 
 			<input class="btn btn-primary" type="submit" value="가입" />
-
+			<small class="form-text text-muted">
+			<c:if test="${errors.sql }">데이터베이스 오류가 발생했습니다. 데이터베이스를 확인해 주세요.</c:if>
+			</small>
+			
 		</form>
 	</div>
-
+<u:footer />
 
 </body>
 </html>

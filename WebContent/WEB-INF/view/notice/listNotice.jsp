@@ -13,13 +13,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
-<title>게시글 목록</title>
+<title>공지사항 게시글 목록</title>
 </head>
 <body>
-<u:navbar notList="active" />
+<u:navbar notice="active" />
+	<div class="container"><div class="col-sm-12" style="color: white; text-align: center;"><h4>공지사항</h4></div></div>
 	<div class="container">
-		<table class="table">
+		<table class="table table-dark table-striped">
 			<thead>
 				<tr>
 					<th style="width: 10%;">번호</th>
@@ -82,5 +84,8 @@
 		</form>
 		<a class="btn btn-danger float-right" href="write.do">작성</a>
 	</div>
+
+<u:footer />
+
 </body>
 </html>

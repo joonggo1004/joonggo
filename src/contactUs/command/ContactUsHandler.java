@@ -60,7 +60,7 @@ public class ContactUsHandler implements CommandHandler{
 		// 메시지를 기입
 		String from = "wonder.bluedragon@gmail.com";
 		String to = "kkjc1004@naver.com";
-		String subject = "신고 메일입니다.";
+		String subject = "문의 및 신고 메일입니다.";
 		
 		int result1 = sendMail.send(from, to, subject, report);
 		int result2 = write.write(report);
@@ -75,7 +75,7 @@ public class ContactUsHandler implements CommandHandler{
 		} else {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('정상적으로 신고되었습니다..');");
+			script.println("alert('정상적으로 접수되었습니다..');");
 			script.println("location.href='index.jsp'");
 			script.println("</script>");
 			script.close();

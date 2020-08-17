@@ -13,13 +13,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <title>게시글 목록</title>
 </head>
 <body>
 <u:navbar list="active" />
+	<div class="container"><div class="col-sm-12" style="color: white; text-align: center;"><h4>중고 세상</h4></div></div>
 	<div class="container">
-		<table class="table">
+		<table class="table table-dark table-striped">
 			<thead>
 				<tr>
 					<th style="width: 10%;">번호</th>
@@ -75,10 +77,14 @@
 		</nav>
 	</div>
 	<div class="container">
-		<form action="list.do" method="get" class="form-inline my-2 my-lg-0 float-right">
-			<input type="text" name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요." aria-label="Search"/>
+		<form action="${ctxPath }/product/list.do" method="get" class="form-inline my-2 my-lg-0 float-right">
+			<input name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요." aria-label="Search"/>
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		</form>
 	</div>
+
+
+<u:footer />
+
 </body>
 </html>

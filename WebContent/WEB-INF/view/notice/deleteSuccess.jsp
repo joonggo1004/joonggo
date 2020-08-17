@@ -13,12 +13,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${ctxPath }/css/jumbotron.css">
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <title>삭제 성공</title>
 </head>
 <body>
-<u:navbar list="active" />
+<u:navbar notice="active" />
 
 <div class="container mt-3">
 	<div class="jumbotron">
@@ -30,6 +30,9 @@
 		<a class="btn btn-primary btn-lg" href="${ctxPath }/notice/list.do" role="button">게시글 목록보기</a>
 	</div>
 </div>
+<br />
+<br />
+<u:footer />
 
 </body>
 </html>

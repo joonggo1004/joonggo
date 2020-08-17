@@ -13,13 +13,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <title>게시글 목록</title>
 </head>
 <body>
-<u:navbar list="active" />
+<u:navbar listAjax="active" />
+	<div class="container"><div class="col-sm-12" style="color: white; text-align: center;"><h4>중고 세상</h4></div></div>
 	<div class="container">
-		<table class="table">
+		<table class="table table-dark table-striped">
 			<thead>
 				<tr>
 					<th style="width: 10%;">번호</th>
@@ -38,8 +40,7 @@
 				<c:forEach var="product" items="${productPage.content }">
 					<tr>
 						<td>${product.number }</td>
-						<td><a
-							href="${ctxPath }/product/read.do?no=${product.number }&pageNo=${productPage.currentPage}">
+						<td><a href="${ctxPath }/product/readAjax.do?no=${product.number }">
 								<c:out value="${product.title }"></c:out>
 						</a></td>
 						<td>${product.writer.name }</td>
@@ -56,25 +57,33 @@
 			<ul class="pagination justify-content-center">
 				<c:if test="${productPage.startPage > 5 }">
 					<li class="page-item disabled"><a class="page-link"
-						href="${ctxPath }/product/list.do?pageNo=${productPage.startPage-5 }"
+						href="${ctxPath }/product/listAjax.do?pageNo=${productPage.startPage-5 }"
 						tabindex="-1" aria-disabled="true">이전</a></li>
 				</c:if>
 				<c:forEach var="pNo" begin="${productPage.startPage }"
 					end="${productPage.endPage }">
-					<li class="page-item"><a class="page-link" href="${ctxPath }/article/list.do?pageNo=${pNo }">${pNo }</a></li>
+					<c:if test="${productPage.currentPage == pNo}">
+						<li class="page-item active"><a class="page-link" href="${ctxPath }/product/listAjax.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
+					<c:if test="${productPage.currentPage != pNo}">
+						<li class="page-item"><a class="page-link" href="${ctxPath }/product/listAjax.do?pageNo=${pNo }">${pNo }</a></li>
+					</c:if>
 				</c:forEach>
 				<c:if test="${productPage.endPage < productPage.totalPages }">
 					<li class="page-item"><a class="page-link"
-						href="${ctxPath }/product/list.do?pageNo=${productPage.startPage + 5 }">다음</a></li>
+						href="${ctxPath }/product/listAjax.do?pageNo=${productPage.startPage + 5 }">다음</a></li>
 				</c:if>
 			</ul>
 		</nav>
 	</div>
 	<div class="container">
-		<form action="list.do" method="get" class="form-inline my-2 my-lg-0 float-right">
-			<input type="text" name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요." aria-label="Search"/>
+		<form action="listAjax.do" method="get" class="form-inline my-2 my-lg-0 float-right">
+			<input name="search" class="form-control mr-sm-2" type="search" placeholder="내용을 입력하세요." aria-label="Search"/>
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
 		</form>
 	</div>
+
+<u:footer />
+
 </body>
 </html>

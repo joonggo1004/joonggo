@@ -4,10 +4,12 @@ public class User {
 	
 	private String id;
 	private String name;
+	private boolean emailChecked;
 	
-	public User(String id, String name) {
+	public User(String id, String name, boolean emailChecked) {
 		this.id = id;
 		this.name = name;
+		this.emailChecked = emailChecked;
 	}
 	
 	public String getId() {
@@ -17,5 +19,9 @@ public class User {
 	public String getName() {
 		return name;
 	}
+
+	public boolean isEmailChecked() {
+		return emailChecked;
+	}	
 
 }

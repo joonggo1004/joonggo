@@ -14,6 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${ctxPath }/css/custom.css">
 
 <script>
 	var expression = "";
@@ -30,57 +31,65 @@
 
 <div class="container">
 	<table class="table table-dark table-striped">
-		<tr>
-			<td>번호</td>
-			<td>${productData.product.number }</td>
-		</tr>
-		<tr>
-			<td>작성자</td>
-			<td>${productData.product.writer.name }</td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td><c:out value="${productData.product.title }"/></td>
-		</tr>
-		<tr>
-			<td>작성일</td>
-			<td>${productData.product.regDate.toLocaleString() }</td>
-		</tr>
-		<tr>
-			<td>수정일</td>
-			<td>${productData.product.modifiedDate.toLocaleString() }</td>
-		</tr>
-		<tr>
-			<td>내용</td>
-			 
-			<td style="white-space: pre-wrap;">
+		<thead>
+				<tr>
+					<th style="width: 10%; text-align: center;">구분</th>
+					<th style="width: 90%; text-align: center;">내용</th>
+				</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>번호</td>
+				<td>${productData.product.number }</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td>${productData.product.writer.name }</td>
+			</tr>
+			<tr>
+				<td>제목</td>
+				<td><c:out value="${productData.product.title }"/></td>
+			</tr>
+			<tr>
+				<td>작성일</td>
+				<td>${productData.product.regDate.toLocaleString() }</td>
+			</tr>
+			<tr>
+				<td>수정일</td>
+				<td>${productData.product.modifiedDate.toLocaleString() }</td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				 
+				<td style="white-space: pre-wrap;">
 <c:out value="${productData.content }"/>
 <c:if test="${not empty productData.fileName}">
-					<!-- <a href="/pjfiles/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
+<!-- <a href="/pjfiles/product/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
 <img src="/pjfiles/product/${productData.product.number }/${productData.fileName}" alt="" />
 </c:if>
-			</td>
-			<%--
-			<td><u:pre value="${productData.content }"/>
-				<c:if test="${not empty productData.fileName}">
-					<!-- <a href="/pjfiles/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
-					<img src="/pjfiles/${productData.product.number }/${productData.fileName}" alt="" />
-				</c:if>
-			</td>
-			--%>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<c:set var="pageNo" value="${empty param.pageNo ? '1' : param.pageNo }"/>
-				<c:if test="${authUser.id == productData.product.writer.id }">
-					<a class="btn btn-secondary" href="modify.do?no=${productData.product.number }">수정</a>
-					<a class="btn btn-danger" href="delete.do?no=${productData.product.number }">삭제</a>
-				</c:if>
-			</td>
-		</tr>		
+				</td>
+				<%--
+				<td><u:pre value="${productData.content }"/>
+					<c:if test="${not empty productData.fileName}">
+						<!-- <a href="/pjfiles/${productData.product.number }/${productData.fileName}">${productData.fileName}</a>  -->
+						<img src="/pjfiles/${productData.product.number }/${productData.fileName}" alt="" />
+					</c:if>
+				</td>
+				--%>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<c:set var="pageNo" value="${empty param.pageNo ? '1' : param.pageNo }"/>
+					<c:if test="${authUser.id == productData.product.writer.id }">
+						<a class="btn btn-secondary" href="modify.do?no=${productData.product.number }">수정</a>
+						<a class="btn btn-danger" href="delete.do?no=${productData.product.number }">삭제</a>
+					</c:if>
+				</td>
+			</tr>
+		</tbody>	
 	</table>
 	
-	<c:if test="${authUser != null }">
+	<c:if test="${authUser.emailChecked }">
 		<div class="container">
 			<form action="${ctxPath }/prodComment/writeComment.do" method="post">
 				<input type="number" name="productNo" value="${productData.product.number }" hidden="hidden" />
@@ -100,12 +109,12 @@
 		
 		<c:if test="${!arrayProdReplyData[0].isEmpty() }">
 	
-			<table class="table">
+			<table class="table table-dark table-striped">
 				<c:forEach var="message" items="${arrayProdReplyData[0].messageList }" varStatus="status">
 					<tr>
 						<td>
 							${i=status.index;'' }
-							<button class="btn btn-outline-primary" type="button" onclick="replyFct(${i})">응답</button> 
+							<button class="btn btn-danger" type="button" onclick="replyFct(${i})">응답</button> 
 							
 							<form class="form-inline" id="reply${i }" style="display:none" action="${ctxPath }/prodComment/writeReply.do?page=${arrayProdReplyData[0].currentPageNumber}" method="post">
 								<input type="number" name="index" value="${i }" hidden="hidden" />
@@ -119,7 +128,7 @@
 										<b style="color:red">내용을 입력하세요.</b>
 										<script>replyFct(${i });</script>
 									</c:if>
-									<input class="btn btn-outline-secondary" type="submit" value="응답 남기기" />
+									<input class="btn btn-warning" type="submit" value="응답 남기기" />
 								</div>
 							</form>
 							
@@ -127,7 +136,7 @@
 								${j=status.index;'' }
 								<c:if test="${(j!=0) && !view.isEmpty() }">
 									<c:if test="${message.no == view.messageList[0].parentNo }">
-										<table class="table">
+										<table class="table table-dark table-striped">
 											<c:forEach var="reply" items="${view.messageList }" >
 												<tr>
 													<td>
@@ -164,5 +173,8 @@
 		</c:if>
 	</c:if>
 </div>
+
+<u:footer />
+
 </body>
 </html>

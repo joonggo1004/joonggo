@@ -20,7 +20,7 @@ public class LoginService {
 			if (!member.matchPassword(password)) {
 				throw new LoginFailException();
 			}
-			return new User(member.getId(), member.getName());
+			return new User(member.getId(), member.getName(), member.isEmailChecked());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
