@@ -1,3 +1,9 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejuhallasan.css);
+* {
+	font-family: 'Nanum Gothic', 'Hanna', sans-serif;
+}
 video {
 	position: fixed; right: 0; bottom: 0;
 	min-width: 100%; min-height: 100%;
@@ -12,6 +18,7 @@ video {
 	text-shadow: balck 0.2em 0.2em 0.2em;
 	color: white;
 	opacity: 0.9;
+	font-family: 'Jeju Hallasan', 'Nanum Gothic', sans-serif;
 }
 img {
 	max-width: 100%;
